@@ -1,5 +1,5 @@
 
-const CACHE_NAME = 'suraksha-v5'; // वर्जन अपडेट किया गया
+const CACHE_NAME = 'suraksha-v5'; // यहाँ 'const' को छोटा कर दिया गया है
 const assets = [
   './',
   './index.html',
