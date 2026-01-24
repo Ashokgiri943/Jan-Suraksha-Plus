@@ -35,9 +35,9 @@
 
 <div id="info-modal" class="modal">
     <div class="modal-content" style="text-align: left;">
-        <h2 style="color:var(--primary-red); border-bottom: 2px solid #eee; padding-bottom: 10px;">मार्गदर्शिका एवं नियम</h2>
+        <h2 style="color:var(--primary-red); border-bottom: 2px solid #eee; padding-bottom: 10px;">विस्तृत मार्गदर्शिका एवं नियम</h2>
         <p><b>१. परिचय:</b> 'जन सुरक्षा' अशोक गिरी जी द्वारा विकसित एक आपातकालीन ऐप है।</p>
-        <p><b>२. गोपनीयता:</b> आपके नंबर आपके फोन में ही सुरक्षित रहते हैं।</p>
+        <p><b>२. गोपनीयता नीति:</b> हम आपकी प्राइवेसी का सम्मान करते हैं। आपके नंबर केवल आपके फोन में सुरक्षित रहते हैं।</p>
         <p><b>३. संपर्क:</b> विकासकर्ता: अशोक गिरी, स्थान: खटीमा, उत्तराखंड।</p>
         <button onclick="closeModal('info-modal')" style="width:100%; background:var(--primary-red); color:white; border:none; padding:15px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:15px;">ठीक है</button>
     </div>
@@ -46,7 +46,7 @@
 <div id="rating-modal" class="modal">
     <div class="modal-content">
         <h2 style="color:var(--primary-red);">रेटिंग दें ⭐</h2>
-        <p><b>अशोक गिरी</b> जी के प्रयास के लिए अपनी रेटिंग चुनें:</p>
+        <p><b>अशोक गिरी</b> जी के इस प्रयास के लिए अपनी रेटिंग चुनें:</p>
         <div class="star-row">
             <span onclick="giveRate(1)">⭐</span><span onclick="giveRate(2)">⭐</span><span onclick="giveRate(3)">⭐</span><span onclick="giveRate(4)">⭐</span><span onclick="giveRate(5)">⭐</span>
         </div>
@@ -62,22 +62,22 @@
     </div>
     <div class="header">जन सुरक्षा</div>
     
-    <input type="tel" id="n1" placeholder="आपातकालीन नंबर 1">
-    <input type="tel" id="n2" placeholder="आपातकालीन नंबर 2">
+    <input type="tel" id="n1" placeholder="आपातकालीन मोबाइल नंबर 1">
+    <input type="tel" id="n2" placeholder="आपातकालीन मोबाइल नंबर 2">
     <input type="url" id="wg" placeholder="व्हाट्सएप ग्रुप लिंक डालें">
 
     <div class="btn-row">
         <button class="btn save" onclick="lock()">💾 सुरक्षित करें</button>
-        <button class="btn edit" onclick="unlock()">✏️ एडिट</button>
+        <button class="btn edit" onclick="unlock()">✏️ एडिट करें</button>
     </div>
 
     <button class="sos-btn" onclick="sos()">SOS</button>
     <button id="s" class="siren-btn" onclick="tS()">🚨 सायरन बजाएं</button>
 
     <div class="grid">
-        <button class="q-btn p-btn" onclick="window.open('tel:112')">👮 पुलिस</button>
-        <button class="q-btn f-btn" onclick="window.open('tel:101')">🔥 फायर</button>
-        <button class="q-btn a-btn" onclick="window.open('tel:108')">🚑 एम्बुलेंस</button>
+        <button class="q-btn p-btn" onclick="window.open('tel:112')">👮<br>पुलिस 112</button>
+        <button class="q-btn f-btn" onclick="window.open('tel:101')">🔥<br>फायर 101</button>
+        <button class="q-btn a-btn" onclick="window.open('tel:108')">🚑<br>एम्बुलेंस 108</button>
     </div>
 
     <div style="text-align:center; margin-top:15px;">
@@ -123,13 +123,15 @@
         if(!n1) return alert("पहले नंबर सुरक्षित करें!");
         
         navigator.geolocation.getCurrentPosition(p => {
-            let loc = `http://maps.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
-            let msg = `आपातकालीन सूचना! मैं खतरे में हूँ। लोकेशन: ${loc}`;
+            let lat = p.coords.latitude;
+            let lon = p.coords.longitude;
+            let loc = `https://www.google.com/maps?q=${lat},${lon}`;
+            let msg = `आपातकालीन सूचना! मैं खतरे में हूँ। मेरी लोकेशन: ${loc}`;
             
             // १. पहले नंबर १ पर SMS भेजें
             window.open(`sms:${n1}?body=${encodeURIComponent(msg)}`, '_blank');
             
-            // २. २ सेकंड बाद सीधे व्हाट्सएप ग्रुप लिंक खोलें
+            // २. २ सेकंड बाद व्हाट्सएप ग्रुप लिंक खोलें
             if(wg) {
                 setTimeout(() => {
                     window.open(wg, '_blank');
@@ -153,11 +155,12 @@
     }
 
     function shareApp() {
-        const text = "अशोक गिरी जी द्वारा बनाया गया 'जन सुरक्षा' ऐप: ";
+        const text = "अशोक गिरी जी द्वारा बनाया गया 'जन सुरक्षा' ऐप इंस्टॉल करें: ";
         if (navigator.share) navigator.share({ title: 'जन सुरक्षा', text: text, url: window.location.href });
         else prompt("लिंक कॉपी करें:", window.location.href);
     }
 
+    // शुद्ध छोटा 'if' सिंटैक्स
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js')
         .then(() => console.log("अशोक गिरी: सुरक्षा सेवा सक्रिय है!"));
