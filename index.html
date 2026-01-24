@@ -25,8 +25,6 @@
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
         .q-btn { aspect-ratio: 1/1; border: none; border-radius: 18px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; }
         .p-btn { background: #1565c0; } .f-btn { background: #e65100; } .a-btn { background: var(--success-green); }
-        
-        /* Modal Styles for Rating and Info */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; padding: 20px; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .modal-content { background: white; width: 100%; max-width: 400px; border-radius: 25px; padding: 30px; text-align: center; position: relative; }
         .star-row { font-size: 35px; color: #ffca28; margin: 20px 0; cursor: pointer; }
@@ -123,9 +121,11 @@
         let n1 = localStorage.getItem('n1');
         let wg = localStorage.getItem('wg');
         if(!n1) return alert("पहले नंबर सुरक्षित करें!");
+        
         navigator.geolocation.getCurrentPosition(p => {
-            let loc = `http://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`;
-            let msg = `आपातकालीन सूचना! मैं खतरे में हूँ। लोकेशन: ${loc}`;
+            // शुद्ध बैक-टिक्स और सही वेरिएबल लिंक
+            let loc = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
+            let msg = `आपातकालीन सूचना! मैं खतरे में हूँ। मेरी लोकेशन: ${loc}`;
             window.open(`sms:${n1}?body=${encodeURIComponent(msg)}`, '_blank');
             if(wg) setTimeout(() => window.open(wg, '_blank'), 2000);
         }, () => alert("GPS ऑन करें!"), {enableHighAccuracy:true});
@@ -150,9 +150,12 @@
         if (navigator.share) navigator.share({ title: 'जन सुरक्षा', text: text, url: window.location.href });
         else prompt("लिंक कॉपी करें:", window.location.href);
     }
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-    .then(() => console.log("अशोक गिरी: सुरक्षा सेवा सक्रिय है!"));
-}</script>
+
+    // शुद्ध छोटा 'if' सिंटैक्स
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+        .then(() => console.log("अशोक गिरी: सुरक्षा सेवा सक्रिय है!"));
+    }
+</script>
 </body>
 </html>
