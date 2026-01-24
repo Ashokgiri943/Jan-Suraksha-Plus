@@ -150,6 +150,9 @@
         if (navigator.share) navigator.share({ title: 'जन सुरक्षा', text: text, url: window.location.href });
         else prompt("लिंक कॉपी करें:", window.location.href);
     }
-</script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+    .then(() => console.log("अशोक गिरी: सुरक्षा सेवा सक्रिय है!"));
+}</script>
 </body>
 </html>
