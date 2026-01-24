@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jan Suraksha - Secure Confirmation</title>
+    <title>Jan Suraksha - Hyper Fast</title>
     <style>
         * { box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial; background: #f0f2f5; margin: 0; padding: 10px; display: flex; justify-content: center; }
@@ -14,11 +15,10 @@
         .btn-row { display: flex; gap: 8px; margin-bottom: 15px; }
         .btn { flex: 1; padding: 10px; border: none; border-radius: 8px; font-weight: bold; color: white; cursor: pointer; font-size: 13px; }
         .save { background: #2e7d32; } .edit { background: #757575; }
-        .sos-container { text-align: center; margin-bottom: 15px; }
-        .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 110px; height: 110px; border-radius: 50%; border: 5px solid #fff; color: white; font-size: 24px; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.2); cursor: pointer; }
+        .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 110px; height: 110px; border-radius: 50%; border: 5px solid #fff; color: white; font-size: 24px; font-weight: bold; display: block; margin: 0 auto 15px; cursor: pointer; box-shadow: 0 5px 15px rgba(239, 82, 82, 0.4); }
         .siren-btn { width: 100%; padding: 12px; border-radius: 8px; background: #6a1b9a; color: white; font-weight: bold; border: none; margin-bottom: 15px; font-size: 16px; }
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .q-btn { aspect-ratio: 1/1; border: none; border-radius: 10px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; cursor: pointer; }
+        .q-btn { aspect-ratio: 1/1; border: none; border-radius: 10px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; }
         .p-btn { background: #1565c0; } .f-btn { background: #e65100; } .a-btn { background: #2e7d32; }
         .footer { margin-top: 15px; font-size: 12px; color: #333; font-weight: bold; text-align: center; border-top: 1px solid #eee; padding-top: 8px; }
     </style>
@@ -28,38 +28,29 @@
     <div class="header">जन सुरक्षा</div>
     <input type="tel" id="n1" placeholder="मोबाइल नंबर 1">
     <input type="tel" id="n2" placeholder="मोबाइल नंबर 2">
-    <input type="url" id="wa" placeholder="ग्रुप लिंक">
+    <input type="url" id="wa" placeholder="व्हाट्सएप ग्रुप लिंक">
     <div class="btn-row">
         <button class="btn save" onclick="lock()">💾 सुरक्षित करें</button>
         <button class="btn edit" onclick="unlock()">✏️ एडिट</button>
     </div>
-    <div class="sos-container">
-        <button class="sos-btn" onclick="confirmAction('SOS भेजें', sos)">SOS</button>
-    </div>
+    <button class="sos-btn" onclick="sos()">SOS</button>
     <button id="s" class="siren-btn" onclick="tS()">🚨 सायरन बजाएं</button>
     <div class="grid">
-        <button class="q-btn p-btn" onclick="confirmAction('पुलिस (112) को कॉल करें', () => window.open('tel:112'))">👮<br>112</button>
-        <button class="q-btn f-btn" onclick="confirmAction('दमकल (101) को कॉल करें', () => window.open('tel:101'))">🔥<br>101</button>
-        <button class="q-btn a-btn" onclick="confirmAction('एम्बुलेंस (108) को कॉल करें', () => window.open('tel:108'))">🚑<br>108</button>
+        <button class="q-btn p-btn" onclick="if(confirm('112 कॉल करें?')) window.open('tel:112')">👮<br>112</button>
+        <button class="q-btn f-btn" onclick="if(confirm('101 कॉल करें?')) window.open('tel:101')">🔥<br>101</button>
+        <button class="q-btn a-btn" onclick="if(confirm('108 कॉल करें?')) window.open('tel:108')">🚑<br>108</button>
     </div>
     <div class="footer">Developed by: Ashok Giri</div>
 </div>
 
 <script>
-    // पुष्टि के लिए नया फंक्शन
-    function confirmAction(task, action) {
-        if (confirm("क्या आप पक्का " + task + " चाहते हैं?")) {
-            action();
-        }
-    }
-
     const ids = ['n1', 'n2', 'wa'];
     function lock() {
         ids.forEach(id => {
             let val = document.getElementById(id).value;
             if(val) { localStorage.setItem(id, val); document.getElementById(id).disabled = true; }
         });
-        alert("डेटा लॉक हो गया!");
+        alert("डेटा सुरक्षित हो गया!");
     }
     function unlock() { ids.forEach(id => document.getElementById(id).disabled = false); }
     window.onload = () => {
@@ -82,12 +73,29 @@
     }
 
     function sos() {
-        let n = localStorage.getItem('n1');
-        if(!n) return alert("नंबर सेव करें!");
+        let n1 = localStorage.getItem('n1');
+        let n2 = localStorage.getItem('n2');
+        let wa = localStorage.getItem('wa');
+        let msg = "मुझे आपकी जरूरत है, कृपया मेरी मदद करें।";
+
+        if(!n1) return alert("नंबर भरें!");
+
         navigator.geolocation.getCurrentPosition(p => {
-            let l = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
-            window.location.href = `sms:${n}?body=मदद! मेरी लोकेशन: ${l}`;
-        }, () => { window.location.href = `sms:${n}?body=मदद चाहिए!`; }, {enableHighAccuracy:true});
+            let loc = `http://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`;
+            let fullMsg = `${msg} लोकेशन: ${loc}`;
+
+            // 1. सबसे पहले व्हाट्सएप खोलें (इसमें सेंड दबाना होगा)
+            if(wa) {
+                let waUrl = wa.includes('?') ? `${wa}&text=${encodeURIComponent(fullMsg)}` : `${wa}?text=${encodeURIComponent(fullMsg)}`;
+                window.open(waUrl, '_blank');
+            }
+
+            // 2. तुरंत बाद SMS भेजें
+            setTimeout(() => {
+                window.location.href = `sms:${n1},${n2 || ''}?body=${encodeURIComponent(fullMsg)}`;
+            }, 1000);
+
+        }, () => alert("लोकेशन नहीं मिल सकी!"), {enableHighAccuracy:true});
     }
 </script>
 </body>
