@@ -1,7 +1,8 @@
 const CACHE_NAME = 'jan-surksha-v2';
 const ASSETS_TO_CACHE = [
   'index.html',
-  'manifest.json'
+  'manifest.json',
+  'icon.png' // इसे यहाँ जरूर जोड़ें
 ];
 
 // इंस्टॉल इवेंट: फाइलों को कैश में डालना
@@ -21,3 +22,4 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
+// अशोक गिरी: सुरक्षा सेवा सक्रिय है!
