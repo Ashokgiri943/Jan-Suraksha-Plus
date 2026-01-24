@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jan Suraksha - Dev Ashok Giri</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; text-align: center; background: #f0f2f5; padding: 15px; margin: 0; }
+        .container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
+        .header { background: #212121; color: #ffd700; padding: 10px; border-radius: 10px; font-weight: bold; margin-bottom: 20px; }
+        h2 { color: #d32f2f; margin-bottom: 5px; }
+        
+        .sos-btn { 
+            background: radial-gradient(circle, #ff5252, #b71c1c); 
+            width: 150px; height: 150px; border-radius: 50%; border: 8px solid #fff;
+            color: white; font-size: 30px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 0 20px rgba(255,0,0,0.4); margin: 20px 0;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 82, 82, 0); }
+            100% { transform: scale(1); }
+        }
+
+        .btn { width: 100%; padding: 14px; margin: 8px 0; border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
+        .police { background: #1a237e; }
+        .ambulance { background: #1b5e20; }
+        .siren { background: #4a148c; }
+        .save { background: #455a64; }
+
+        input { width: 90%; padding: 12px; margin: 6px 0; border: 1px solid #ccc; border-radius: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">Developed by: Ashoka the Great</div>
+    <h2>जन सुरक्षा ऐप</h2>
+    <p>आपका निजी सुरक्षा कवच</p>
+
+    <div id="setup">
+        <input type="tel" id="n1" placeholder="Contact Number 1 (Main)">
+        <input type="tel" id="n2" placeholder="Contact Number 2">
+        <input type="text" id="grp" placeholder="WhatsApp Group Link">
+        <button class="btn save" onclick="saveData()">SAVE DETAILS</button>
+    </div>
+
+    <button class="sos-btn" onclick="sendSOS()">SOS</button>
+    
+    <button class="btn siren" onclick="toggleSiren()">🚨 TOGGLE SIREN</button>
+    <button class="btn police" onclick="window.open('tel:112')">📞 POLICE (112)</button>
+    <button class="btn ambulance" onclick="window.open('tel:108')">🚑 AMBULANCE (108)</button>
+
+    <div style="font-size: 11px; color: #888; margin-top: 20px;">
+        © 2026 | Ashok Giri (Khatima)
+    </div>
+</div>
+
+<audio id="sirenSound" src="https://www.soundjay.com/misc/sounds/siren-1.mp3" loop></audio>
+
+<script>
+    function saveData() {
+        localStorage.setItem('num1', document.getElementById('n1').value);
+        localStorage.setItem('num2', document.getElementById('n2').value);
+        localStorage.setItem('wGroup', document.getElementById('grp').value);
+        alert("Details Saved Successfully!");
+    }
+
+    window.onload = () => {
+        document.getElementById('n1').value = localStorage.getItem('num1') || "";
+        document.getElementById('n2').value = localStorage.getItem('num2') || "";
+        document.getElementById('grp').value = localStorage.getItem('wGroup') || "";
+    };
+
+    function sendSOS() {
+        const p1 = localStorage.getItem('num1');
+        if(!p1) return alert("Please save a number first!");
+
+        navigator.geolocation.getCurrentPosition(pos => {
+            const url = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+            const msg = encodeURIComponent("Emergency! Help me. My location: " + url);
+            window.open(`sms:${p1}?body=${msg}`, '_blank');
+        });
+    }
+
+    let isPlaying = false;
+    function toggleSiren() {
+        const s = document.getElementById('sirenSound');
+        isPlaying ? s.pause() : s.play();
+        isPlaying = !isPlaying;
+    }
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+    }
+</script>
+
+</body>
+</html>
