@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -19,29 +18,40 @@
         .btn-row { display: flex; gap: 8px; margin-bottom: 20px; }
         .btn { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: bold; color: white; cursor: pointer; }
         .save { background: #2e7d32; } .edit { background: #757575; }
-        .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 120px; height: 120px; border-radius: 50%; border: 6px solid #fff; color: white; font-size: 26px; font-weight: bold; display: block; margin: 0 auto 20px; cursor: pointer; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(211,47,47,0.7); } 70% { box-shadow: 0 0 0 25px rgba(211,47,47,0); } 100% { box-shadow: 0 0 0 0 rgba(211,47,47,0); } }
-        .siren-btn { width: 100%; padding: 14px; border-radius: 10px; background: #6a1b9a; color: white; font-weight: bold; border: none; margin-bottom: 20px; font-size: 16px; }
+        .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 110px; height: 110px; border-radius: 50%; border: 6px solid #fff; color: white; font-size: 24px; font-weight: bold; display: block; margin: 0 auto 15px; cursor: pointer; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(211,47,47,0.7); } 70% { box-shadow: 0 0 0 20px rgba(211,47,47,0); } 100% { box-shadow: 0 0 0 0 rgba(211,47,47,0); } }
+        .siren-btn { width: 100%; padding: 14px; border-radius: 10px; background: #6a1b9a; color: white; font-weight: bold; border: none; margin-bottom: 15px; font-size: 16px; }
+        
+        /* ग्रिड सेक्शन जो गायब हो गया था */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .q-btn { aspect-ratio: 1/1; border: none; border-radius: 10px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; cursor: pointer; }
+        .p-btn { background: #1565c0; } .f-btn { background: #e65100; } .a-btn { background: #2e7d32; }
+
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; padding: 20px; align-items: center; justify-content: center; }
-        .modal-content { background: white; width: 100%; max-width: 350px; border-radius: 20px; padding: 25px; position: relative; max-height: 80vh; overflow-y: auto; }
-        .footer { margin-top: 20px; font-size: 13px; text-align: center; border-top: 1px solid #eee; padding-top: 10px; }
+        .modal-content { background: white; width: 100%; max-width: 350px; border-radius: 20px; padding: 25px; position: relative; max-height: 80vh; overflow-y: auto; text-align: left; }
+        .footer { margin-top: 20px; font-size: 13px; text-align: center; border-top: 1px solid #eee; padding-top: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div id="guide-modal" class="modal" style="display: flex;">
     <div class="modal-content">
-        <h2 style="color:#d32f2f;">स्वागत है!</h2>
-        <p style="text-align:left;"><b>निर्देश:</b><br>1. नंबर भरकर 'सुरक्षित करें' दबाएं।<br>2. आपातकाल में SOS दबाएं।<br>3. GPS हमेशा ऑन रखें।</p>
-        <button onclick="closeGuide()" style="width:100%; background:#d32f2f; color:white; border:none; padding:15px; border-radius:10px; font-weight:bold;">शुरू करें</button>
+        <h2 style="color:#d32f2f; text-align: center;">स्वागत है!</h2>
+        <p><b>उपयोग की विधि:</b></p>
+        <ul style="line-height: 1.6;">
+            <li>मोबाइल नंबर भरें और <b>सुरक्षित करें</b>।</li>
+            <li>मुसीबत में <b>SOS</b> दबाएं, लोकेशन भेज दी जाएगी।</li>
+            <li>भीड़ के लिए <b>सायरन</b> बजाएं।</li>
+        </ul>
+        <button onclick="closeGuide()" style="width:100%; background:#d32f2f; color:white; border:none; padding:15px; border-radius:10px; font-weight:bold; cursor:pointer;">शुरू करें</button>
     </div>
 </div>
 
 <div id="info-modal" class="modal">
     <div class="modal-content">
         <h3 style="color:#d32f2f;">प्राइवेसी पॉलिसी</h3>
-        <p style="font-size:13px; text-align:left;">हम कोई डेटा स्टोर नहीं करते। संपर्क: giriashok44908@gmail.com</p>
-        <button onclick="closeInfo()" style="width:100%; background:#757575; color:white; border:none; padding:10px; border-radius:10px;">बंद करें</button>
+        <p><b>संपर्क:</b> giriashok44908@gmail.com</p>
+        <button onclick="closeInfo()" style="width:100%; background:#757575; color:white; border:none; padding:10px; border-radius:10px; cursor:pointer;">बंद करें</button>
     </div>
 </div>
 
@@ -53,14 +63,21 @@
     <div class="header">जन सुरक्षा</div>
     <input type="tel" id="n1" placeholder="मोबाइल नंबर 1">
     <input type="tel" id="n2" placeholder="मोबाइल नंबर 2">
-    <input type="url" id="wa" placeholder="ग्रुप लिंक">
+    <input type="url" id="wa" placeholder="व्हाट्सएप ग्रुप लिंक">
     <div class="btn-row">
         <button class="btn save" onclick="lock()">💾 सुरक्षित करें</button>
         <button class="btn edit" onclick="unlock()">✏️ एडिट</button>
     </div>
     <button class="sos-btn" onclick="sos()">SOS</button>
     <button id="s" class="siren-btn" onclick="tS()">🚨 सायरन बजाएं</button>
-    <div class="footer"><b>Developed by: Ashok Giri</b></div>
+
+    <div class="grid">
+        <button class="q-btn p-btn" onclick="if(confirm('112 कॉल?')) window.open('tel:112')">👮<br>112</button>
+        <button class="q-btn f-btn" onclick="if(confirm('101 कॉल?')) window.open('tel:101')">🔥<br>101</button>
+        <button class="q-btn a-btn" onclick="if(confirm('108 कॉल?')) window.open('tel:108')">🚑<br>108</button>
+    </div>
+
+    <div class="footer">Developed by: Ashok Giri</div>
 </div>
 
 <script>
@@ -68,7 +85,7 @@
     function closeGuide() { document.getElementById('guide-modal').style.display = 'none'; }
     function showInfo() { document.getElementById('info-modal').style.display = 'flex'; }
     function closeInfo() { document.getElementById('info-modal').style.display = 'none'; }
-    function shareApp() { if (navigator.share) { navigator.share({ title: 'जन सुरक्षा', text: 'मेरी सुरक्षा के लिए ऐप', url: window.location.href }); } }
+    function shareApp() { if (navigator.share) { navigator.share({ title: 'जन सुरक्षा', text: 'आपातकालीन सहायता ऐप', url: window.location.href }); } }
 
     const ids = ['n1', 'n2', 'wa'];
     function lock() { ids.forEach(id => { let v = document.getElementById(id).value; if(v){ localStorage.setItem(id, v); document.getElementById(id).disabled = true; } }); alert("सुरक्षित!"); }
@@ -77,12 +94,12 @@
 
     let ctx = null, o = null, active = false, interval = null;
     function tS() {
-        if (!ctx) ctx = new AudioContext();
+        if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
         if(!active) {
             o = ctx.createOscillator(); o.type = 'triangle'; o.connect(ctx.destination); o.start(); active = true;
             document.getElementById('s').innerText = "🛑 बंद करें";
             interval = setInterval(() => { o.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.5); o.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 1); }, 1000);
-        } else { o.stop(); clearInterval(interval); active = false; document.getElementById('s').innerText = "🚨 सायरन बजाएं"; }
+        } else { if(o) o.stop(); clearInterval(interval); active = false; document.getElementById('s').innerText = "🚨 सायरन बजाएं"; }
     }
 
     function sos() {
