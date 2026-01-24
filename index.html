@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jan Suraksha - Final Solution</title>
+    <title>Jan Suraksha - Final Multi-Alert</title>
     <style>
         * { box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial; background: #f0f2f5; margin: 0; padding: 10px; display: flex; justify-content: center; }
         .app-card { background: #fff; border-radius: 20px; padding: 15px; width: 100%; max-width: 380px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 6px solid #d32f2f; }
         .header { color: #d32f2f; font-size: 22px; font-weight: bold; margin-bottom: 15px; text-align: center; }
-        input { width: 100%; padding: 10px; margin-bottom: 8px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; }
+        input { width: 100%; padding: 10px; margin-bottom: 8px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; }
         input:disabled { background: #f9f9f9; color: #2e7d32; font-weight: bold; }
         .btn-row { display: flex; gap: 8px; margin-bottom: 15px; }
         .btn { flex: 1; padding: 10px; border: none; border-radius: 8px; font-weight: bold; color: white; cursor: pointer; }
         .save { background: #2e7d32; } .edit { background: #757575; }
-        .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 110px; height: 110px; border-radius: 50%; border: 5px solid #fff; color: white; font-size: 24px; font-weight: bold; display: block; margin: 0 auto 15px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 110px; height: 110px; border-radius: 50%; border: 5px solid #fff; color: white; font-size: 24px; font-weight: bold; display: block; margin: 0 auto 15px; cursor: pointer; }
         .siren-btn { width: 100%; padding: 12px; border-radius: 8px; background: #6a1b9a; color: white; font-weight: bold; border: none; margin-bottom: 15px; font-size: 16px; }
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
         .q-btn { aspect-ratio: 1/1; border: none; border-radius: 10px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; }
@@ -83,17 +83,15 @@
             let loc = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
             let fullMsg = `${msg} मेरी लोकेशन: ${loc}`;
 
-            // व्हाट्सएप सुधार: सीधे टेक्स्ट भेजने वाला लिंक
-            if(wa) {
-                // यह लिंक व्हाट्सएप को मजबूर करेगा कि वह मैसेज टाइप करे
-                let waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(fullMsg)}`;
-                window.open(waUrl, '_blank');
-            }
+            // 1. दोनों नंबरों पर SMS (कॉमा लगाकर)
+            let smsList = n2 ? `${n1},${n2}` : n1;
+            window.open(`sms:${smsList}?body=${encodeURIComponent(fullMsg)}`, '_blank');
 
-            // SMS सेंडर
+            // 2. व्हाट्सएप पर संदेश लोड करना (थोड़ी देर बाद)
             setTimeout(() => {
-                window.location.href = `sms:${n1}?body=${encodeURIComponent(fullMsg)}`;
-            }, 1200);
+                let waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent("🚨 *आपातकालीन सूचना* 🚨\n" + fullMsg)}`;
+                window.open(waUrl, '_blank');
+            }, 1500);
 
         }, () => alert("GPS ऑन करें!"), {enableHighAccuracy:true});
     }
