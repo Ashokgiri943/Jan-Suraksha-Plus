@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -62,8 +63,8 @@
     </div>
     <div class="header">जन सुरक्षा</div>
     
-    <input type="tel" id="n1" placeholder="आपातकालीन मोबाइल नंबर 1">
-    <input type="tel" id="n2" placeholder="आपातकालीन मोबाइल नंबर 2">
+    <input type="tel" id="n1" placeholder="आपातकालीन नंबर 1 (जैसे 91...)">
+    <input type="tel" id="n2" placeholder="आपातकालीन नंबर 2">
     <input type="url" id="wg" placeholder="व्हाट्सएप ग्रुप लिंक (यदि हो)">
 
     <div class="btn-row">
@@ -119,15 +120,28 @@
 
     function sos() {
         let n1 = localStorage.getItem('n1');
+        let n2 = localStorage.getItem('n2');
         let wg = localStorage.getItem('wg');
         if(!n1) return alert("पहले नंबर सुरक्षित करें!");
         
         navigator.geolocation.getCurrentPosition(p => {
-            // शुद्ध बैक-टिक्स और सही वेरिएबल लिंक
-            let loc = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
+            let lat = p.coords.latitude;
+            let lon = p.coords.longitude;
+            let loc = `https://www.google.com/maps?q=${lat},${lon}`;
             let msg = `आपातकालीन सूचना! मैं खतरे में हूँ। मेरी लोकेशन: ${loc}`;
+            
+            // १. SMS भेजें
             window.open(`sms:${n1}?body=${encodeURIComponent(msg)}`, '_blank');
-            if(wg) setTimeout(() => window.open(wg, '_blank'), 2000);
+            
+            // २. व्हाट्सएप भेजें (नंबर 1 पर)
+            setTimeout(() => {
+                window.open(`https://wa.me/${n1}?text=${encodeURIComponent(msg)}`, '_blank');
+            }, 2000);
+
+            // ३. व्हाट्सएप ग्रुप या नंबर 2 लिंक
+            if(wg) setTimeout(() => window.open(wg, '_blank'), 4000);
+            else if(n2) setTimeout(() => window.open(`https://wa.me/${n2}?text=${encodeURIComponent(msg)}`, '_blank'), 4000);
+
         }, () => alert("GPS ऑन करें!"), {enableHighAccuracy:true});
     }
 
@@ -151,7 +165,6 @@
         else prompt("लिंक कॉपी करें:", window.location.href);
     }
 
-    // शुद्ध छोटा 'if' सिंटैक्स
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js')
         .then(() => console.log("अशोक गिरी: सुरक्षा सेवा सक्रिय है!"));
