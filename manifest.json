@@ -1,7 +1,4 @@
-
-
-{
-  "name": "Jan Suraksha App",
+name": "Jan Suraksha App",
   "short_name": "Suraksha",
   "description": "अशोक गिरी (खटीमा) द्वारा विकसित आपातकालीन सुरक्षा ऐप",
   "start_url": "index.html",
