@@ -1,35 +1,94 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src *; media-src *;">
-    <title>Jan Suraksha - Secure Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jan Suraksha - Secure Confirmation</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Arial; background: #0f172a; color: white; padding: 15px; }
-        .app-card { background: #1e293b; border-radius: 30px; padding: 25px; max-width: 400px; margin: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid #334155; }
-        .header { background: linear-gradient(90deg, #ef4444, #991b1b); padding: 15px; border-radius: 20px; font-size: 24px; font-weight: 800; margin-bottom: 20px; text-align: center; }
-        input { width: 100%; padding: 15px; margin-bottom: 12px; border: 2px solid #334155; border-radius: 15px; background: #0f172a; color: white; font-size: 16px; }
-        input:disabled { opacity: 0.6; border-color: #10b981; color: #10b981; }
-        .btn-box { display: flex; gap: 10px; margin-bottom: 25px; }
-        .btn { flex: 1; padding: 12px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; color: white; }
-        .save { background: #10b981; } .edit { background: #64748b; }
-        .sos-circle { width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(#ef4444, #7f1d1d); border: 8px solid #1e293b; color: white; font-size: 32px; font-weight: 900; margin: 10px auto 25px; display: flex; align-items: center; justify-content: center; cursor: pointer; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .siren-btn { width: 100%; padding: 16px; border-radius: 15px; background: #7c3aed; color: white; font-weight: bold; border: none; margin-bottom: 20px; font-size: 18px; }
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .q-btn { aspect-ratio: 1/1; border: none; border-radius: 18px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; }
-        .p-btn { background: #2563eb; } .f-btn { background: #ea580c; } .a-btn { background: #16a34a; }
-        .footer { margin-top: 25px; font-size: 13px; font-weight: bold; text-align: center; border-top: 1px solid #334155; padding-top: 10px; }
-        .disclaimer { font-size: 9px; opacity: 0.5; margin-top: 15px; line-height: 1.2; text-align: justify; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial; background: #f0f2f5; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .app-card { background: #fff; border-radius: 20px; padding: 15px; width: 100%; max-width: 380px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 6px solid #d32f2f; }
+        .header { color: #d32f2f; font-size: 22px; font-weight: bold; margin-bottom: 15px; text-align: center; }
+        input { width: 100%; padding: 10px; margin-bottom: 8px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; }
+        input:disabled { background: #f9f9f9; color: #2e7d32; font-weight: bold; }
+        .btn-row { display: flex; gap: 8px; margin-bottom: 15px; }
+        .btn { flex: 1; padding: 10px; border: none; border-radius: 8px; font-weight: bold; color: white; cursor: pointer; font-size: 13px; }
+        .save { background: #2e7d32; } .edit { background: #757575; }
+        .sos-container { text-align: center; margin-bottom: 15px; }
+        .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 110px; height: 110px; border-radius: 50%; border: 5px solid #fff; color: white; font-size: 24px; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.2); cursor: pointer; }
+        .siren-btn { width: 100%; padding: 12px; border-radius: 8px; background: #6a1b9a; color: white; font-weight: bold; border: none; margin-bottom: 15px; font-size: 16px; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .q-btn { aspect-ratio: 1/1; border: none; border-radius: 10px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; cursor: pointer; }
+        .p-btn { background: #1565c0; } .f-btn { background: #e65100; } .a-btn { background: #2e7d32; }
+        .footer { margin-top: 15px; font-size: 12px; color: #333; font-weight: bold; text-align: center; border-top: 1px solid #eee; padding-top: 8px; }
     </style>
 </head>
 <body>
 <div class="app-card">
     <div class="header">जन सुरक्षा</div>
-    <input type="tel" id="n1" placeholder="इमरजेंसी नंबर 1">
-    <input type="tel" id="n2" placeholder="इमरजेंसी नंबर 2">
+    <input type="tel" id="n1" placeholder="मोबाइल नंबर 1">
+    <input type="tel" id="n2" placeholder="मोबाइल नंबर 2">
     <input type="url" id="wa" placeholder="ग्रुप लिंक">
-    <div class="btn-box">
+    <div class="btn-row">
+        <button class="btn save" onclick="lock()">💾 सुरक्षित करें</button>
+        <button class="btn edit" onclick="unlock()">✏️ एडिट</button>
+    </div>
+    <div class="sos-container">
+        <button class="sos-btn" onclick="confirmAction('SOS भेजें', sos)">SOS</button>
+    </div>
+    <button id="s" class="siren-btn" onclick="tS()">🚨 सायरन बजाएं</button>
+    <div class="grid">
+        <button class="q-btn p-btn" onclick="confirmAction('पुलिस (112) को कॉल करें', () => window.open('tel:112'))">👮<br>112</button>
+        <button class="q-btn f-btn" onclick="confirmAction('दमकल (101) को कॉल करें', () => window.open('tel:101'))">🔥<br>101</button>
+        <button class="q-btn a-btn" onclick="confirmAction('एम्बुलेंस (108) को कॉल करें', () => window.open('tel:108'))">🚑<br>108</button>
+    </div>
+    <div class="footer">Developed by: Ashok Giri</div>
+</div>
+
+<script>
+    // पुष्टि के लिए नया फंक्शन
+    function confirmAction(task, action) {
+        if (confirm("क्या आप पक्का " + task + " चाहते हैं?")) {
+            action();
+        }
+    }
+
+    const ids = ['n1', 'n2', 'wa'];
+    function lock() {
+        ids.forEach(id => {
+            let val = document.getElementById(id).value;
+            if(val) { localStorage.setItem(id, val); document.getElementById(id).disabled = true; }
+        });
+        alert("डेटा लॉक हो गया!");
+    }
+    function unlock() { ids.forEach(id => document.getElementById(id).disabled = false); }
+    window.onload = () => {
+        ids.forEach(id => {
+            let v = localStorage.getItem(id);
+            if(v) { document.getElementById(id).value = v; document.getElementById(id).disabled = true; }
+        });
+    };
+
+    let ctx = new (window.AudioContext || window.webkitAudioContext)();
+    let o = null, active = false;
+    function tS() {
+        if(!active) {
+            o = ctx.createOscillator(); let g = ctx.createGain(); o.type = 'triangle';
+            o.frequency.setValueAtTime(440, ctx.currentTime);
+            o.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.5);
+            o.connect(g); g.connect(ctx.destination); o.start(); active = true;
+            document.getElementById('s').innerText = "🛑 बंद करें";
+        } else { o.stop(); active = false; document.getElementById('s').innerText = "🚨 सायरन बजाएं"; }
+    }
+
+    function sos() {
+        let n = localStorage.getItem('n1');
+        if(!n) return alert("नंबर सेव करें!");
+        navigator.geolocation.getCurrentPosition(p => {
+            let l = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
+            window.location.href = `sms:${n}?body=मदद! मेरी लोकेशन: ${l}`;
+        }, () => { window.location.href = `sms:${n}?body=मदद चाहिए!`; }, {enableHighAccuracy:true});
+    }
+</script>
+</body>
+</html>
