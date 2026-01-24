@@ -1,29 +1,55 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jan Suraksha - Final Multi-Alert</title>
+    <title>Jan Suraksha - Emergency App</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#d32f2f">
     <style>
         * { box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial; background: #f0f2f5; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .app-card { background: #fff; border-radius: 20px; padding: 15px; width: 100%; max-width: 380px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 6px solid #d32f2f; }
-        .header { color: #d32f2f; font-size: 22px; font-weight: bold; margin-bottom: 15px; text-align: center; }
-        input { width: 100%; padding: 10px; margin-bottom: 8px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; }
-        input:disabled { background: #f9f9f9; color: #2e7d32; font-weight: bold; }
-        .btn-row { display: flex; gap: 8px; margin-bottom: 15px; }
-        .btn { flex: 1; padding: 10px; border: none; border-radius: 8px; font-weight: bold; color: white; cursor: pointer; }
+        .app-card { background: #fff; border-radius: 20px; padding: 15px; width: 100%; max-width: 380px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 6px solid #d32f2f; position: relative; }
+        .header { color: #d32f2f; font-size: 24px; font-weight: bold; margin-bottom: 20px; text-align: center; }
+        .top-icons { position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; }
+        .icon-btn { background: #f0f2f5; border: none; font-size: 18px; cursor: pointer; color: #d32f2f; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        input { width: 100%; padding: 12px; margin-bottom: 10px; border: 2px solid #eee; border-radius: 10px; font-size: 14px; outline: none; }
+        input:disabled { background: #e8f5e9; color: #2e7d32; font-weight: bold; }
+        .btn-row { display: flex; gap: 8px; margin-bottom: 20px; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: bold; color: white; cursor: pointer; }
         .save { background: #2e7d32; } .edit { background: #757575; }
-        .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 110px; height: 110px; border-radius: 50%; border: 5px solid #fff; color: white; font-size: 24px; font-weight: bold; display: block; margin: 0 auto 15px; cursor: pointer; }
-        .siren-btn { width: 100%; padding: 12px; border-radius: 8px; background: #6a1b9a; color: white; font-weight: bold; border: none; margin-bottom: 15px; font-size: 16px; }
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .q-btn { aspect-ratio: 1/1; border: none; border-radius: 10px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; }
-        .p-btn { background: #1565c0; } .f-btn { background: #e65100; } .a-btn { background: #2e7d32; }
-        .footer { margin-top: 15px; font-size: 12px; text-align: center; border-top: 1px solid #eee; padding-top: 8px; font-weight: bold; }
+        .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 120px; height: 120px; border-radius: 50%; border: 6px solid #fff; color: white; font-size: 26px; font-weight: bold; display: block; margin: 0 auto 20px; cursor: pointer; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(211,47,47,0.7); } 70% { box-shadow: 0 0 0 25px rgba(211,47,47,0); } 100% { box-shadow: 0 0 0 0 rgba(211,47,47,0); } }
+        .siren-btn { width: 100%; padding: 14px; border-radius: 10px; background: #6a1b9a; color: white; font-weight: bold; border: none; margin-bottom: 20px; font-size: 16px; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; padding: 20px; align-items: center; justify-content: center; }
+        .modal-content { background: white; width: 100%; max-width: 350px; border-radius: 20px; padding: 25px; position: relative; max-height: 80vh; overflow-y: auto; }
+        .footer { margin-top: 20px; font-size: 13px; text-align: center; border-top: 1px solid #eee; padding-top: 10px; }
     </style>
 </head>
 <body>
+
+<div id="guide-modal" class="modal" style="display: flex;">
+    <div class="modal-content">
+        <h2 style="color:#d32f2f;">स्वागत है!</h2>
+        <p style="text-align:left;"><b>निर्देश:</b><br>1. नंबर भरकर 'सुरक्षित करें' दबाएं।<br>2. आपातकाल में SOS दबाएं।<br>3. GPS हमेशा ऑन रखें।</p>
+        <button onclick="closeGuide()" style="width:100%; background:#d32f2f; color:white; border:none; padding:15px; border-radius:10px; font-weight:bold;">शुरू करें</button>
+    </div>
+</div>
+
+<div id="info-modal" class="modal">
+    <div class="modal-content">
+        <h3 style="color:#d32f2f;">प्राइवेसी पॉलिसी</h3>
+        <p style="font-size:13px; text-align:left;">हम कोई डेटा स्टोर नहीं करते। संपर्क: giriashok44908@gmail.com</p>
+        <button onclick="closeInfo()" style="width:100%; background:#757575; color:white; border:none; padding:10px; border-radius:10px;">बंद करें</button>
+    </div>
+</div>
+
 <div class="app-card">
+    <div class="top-icons">
+        <button class="icon-btn" onclick="shareApp()">🔗</button>
+        <button class="icon-btn" onclick="showInfo()">ⓘ</button>
+    </div>
     <div class="header">जन सुरक्षा</div>
     <input type="tel" id="n1" placeholder="मोबाइल नंबर 1">
     <input type="tel" id="n2" placeholder="मोबाइल नंबर 2">
@@ -34,65 +60,38 @@
     </div>
     <button class="sos-btn" onclick="sos()">SOS</button>
     <button id="s" class="siren-btn" onclick="tS()">🚨 सायरन बजाएं</button>
-    <div class="grid">
-        <button class="q-btn p-btn" onclick="if(confirm('112 कॉल?')) window.open('tel:112')">👮<br>112</button>
-        <button class="q-btn f-btn" onclick="if(confirm('101 कॉल?')) window.open('tel:101')">🔥<br>101</button>
-        <button class="q-btn a-btn" onclick="if(confirm('108 कॉल?')) window.open('tel:108')">🚑<br>108</button>
-    </div>
-    <div class="footer">Developed by: Ashok Giri</div>
+    <div class="footer"><b>Developed by: Ashok Giri</b></div>
 </div>
 
 <script>
-    const ids = ['n1', 'n2', 'wa'];
-    function lock() {
-        ids.forEach(id => {
-            let val = document.getElementById(id).value;
-            if(val) { localStorage.setItem(id, val); document.getElementById(id).disabled = true; }
-        });
-        alert("डेटा लॉक हो गया!");
-    }
-    function unlock() { ids.forEach(id => document.getElementById(id).disabled = false); }
-    window.onload = () => {
-        ids.forEach(id => {
-            let v = localStorage.getItem(id);
-            if(v) { document.getElementById(id).value = v; document.getElementById(id).disabled = true; }
-        });
-    };
+    if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js'); }); }
+    function closeGuide() { document.getElementById('guide-modal').style.display = 'none'; }
+    function showInfo() { document.getElementById('info-modal').style.display = 'flex'; }
+    function closeInfo() { document.getElementById('info-modal').style.display = 'none'; }
+    function shareApp() { if (navigator.share) { navigator.share({ title: 'जन सुरक्षा', text: 'मेरी सुरक्षा के लिए ऐप', url: window.location.href }); } }
 
-    let ctx = new (window.AudioContext || window.webkitAudioContext)();
-    let o = null, active = false;
+    const ids = ['n1', 'n2', 'wa'];
+    function lock() { ids.forEach(id => { let v = document.getElementById(id).value; if(v){ localStorage.setItem(id, v); document.getElementById(id).disabled = true; } }); alert("सुरक्षित!"); }
+    function unlock() { ids.forEach(id => document.getElementById(id).disabled = false); }
+    window.onload = () => { ids.forEach(id => { let v = localStorage.getItem(id); if(v){ document.getElementById(id).value = v; document.getElementById(id).disabled = true; } }); };
+
+    let ctx = null, o = null, active = false, interval = null;
     function tS() {
+        if (!ctx) ctx = new AudioContext();
         if(!active) {
-            o = ctx.createOscillator(); let g = ctx.createGain(); o.type = 'triangle';
-            o.frequency.setValueAtTime(440, ctx.currentTime);
-            o.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.5);
-            o.connect(g); g.connect(ctx.destination); o.start(); active = true;
+            o = ctx.createOscillator(); o.type = 'triangle'; o.connect(ctx.destination); o.start(); active = true;
             document.getElementById('s').innerText = "🛑 बंद करें";
-        } else { o.stop(); active = false; document.getElementById('s').innerText = "🚨 सायरन बजाएं"; }
+            interval = setInterval(() => { o.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.5); o.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 1); }, 1000);
+        } else { o.stop(); clearInterval(interval); active = false; document.getElementById('s').innerText = "🚨 सायरन बजाएं"; }
     }
 
     function sos() {
         let n1 = localStorage.getItem('n1');
-        let n2 = localStorage.getItem('n2');
-        let wa = localStorage.getItem('wa');
-        let msg = "मुझे आपकी जरूरत है, कृपया मेरी मदद करें।";
-
         if(!n1) return alert("नंबर भरें!");
-
         navigator.geolocation.getCurrentPosition(p => {
             let loc = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
-            let fullMsg = `${msg} मेरी लोकेशन: ${loc}`;
-
-            // 1. दोनों नंबरों पर SMS (कॉमा लगाकर)
-            let smsList = n2 ? `${n1},${n2}` : n1;
-            window.open(`sms:${smsList}?body=${encodeURIComponent(fullMsg)}`, '_blank');
-
-            // 2. व्हाट्सएप पर संदेश लोड करना (थोड़ी देर बाद)
-            setTimeout(() => {
-                let waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent("🚨 *आपातकालीन सूचना* 🚨\n" + fullMsg)}`;
-                window.open(waUrl, '_blank');
-            }, 1500);
-
+            let msg = `आपातकालीन! मेरी लोकेशन: ${loc}`;
+            window.open(`sms:${n1}?body=${encodeURIComponent(msg)}`, '_blank');
         }, () => alert("GPS ऑन करें!"), {enableHighAccuracy:true});
     }
 </script>
