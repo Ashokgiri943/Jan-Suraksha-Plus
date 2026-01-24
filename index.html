@@ -7,109 +7,130 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#d32f2f">
     <style>
-        * { box-sizing: border-box; }
+        :root { --primary-red: #d32f2f; --success-green: #2e7d32; }
+        * { box-sizing: border-box; transition: 0.3s ease; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .app-card { background: #fff; border-radius: 25px; padding: 20px; width: 100%; max-width: 400px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border-top: 8px solid #d32f2f; position: relative; }
-        .header { color: #d32f2f; font-size: 26px; font-weight: bold; margin-bottom: 25px; text-align: center; }
+        .app-card { background: #fff; border-radius: 25px; padding: 25px; width: 100%; max-width: 400px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border-top: 8px solid var(--primary-red); position: relative; }
+        .header { color: var(--primary-red); font-size: 28px; font-weight: bold; margin-bottom: 25px; text-align: center; }
         .top-icons { position: absolute; top: 18px; right: 20px; display: flex; gap: 15px; }
-        .icon-btn { background: #f9f9f9; border: 1px solid #eee; font-size: 18px; cursor: pointer; color: #d32f2f; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        input { width: 100%; padding: 14px; margin-bottom: 12px; border: 2px solid #f0f0f0; border-radius: 12px; font-size: 15px; outline: none; }
-        input:disabled { background: #e8f5e9; color: #2e7d32; font-weight: bold; }
-        .btn-row { display: flex; gap: 10px; margin-bottom: 20px; }
-        .btn { flex: 1; padding: 14px; border: none; border-radius: 12px; font-weight: bold; color: white; cursor: pointer; }
-        .save { background: #2e7d32; } .edit { background: #616161; }
-        .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 130px; height: 130px; border-radius: 50%; border: 8px solid #fff; color: white; font-size: 28px; font-weight: bold; display: block; margin: 0 auto 25px; cursor: pointer; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7); } 70% { box-shadow: 0 0 0 30px rgba(211, 47, 47, 0); } 100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); } }
-        .siren-btn { width: 100%; padding: 16px; border-radius: 12px; background: #6a1b9a; color: white; font-weight: bold; border: none; margin-bottom: 20px; font-size: 17px; }
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .q-btn { aspect-ratio: 1/1; border: none; border-radius: 15px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; }
-        .p-btn { background: #1565c0; } .f-btn { background: #e65100; } .a-btn { background: #2e7d32; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; padding: 20px; align-items: center; justify-content: center; }
-        .modal-content { background: white; width: 100%; max-width: 450px; border-radius: 25px; padding: 25px; max-height: 85vh; overflow-y: auto; text-align: left; }
-        .footer { margin-top: 25px; font-size: 14px; text-align: center; border-top: 1px solid #eee; padding-top: 15px; color: #666; font-weight: bold; }
+        .icon-btn { background: #f9f9f9; border: 1px solid #eee; font-size: 18px; cursor: pointer; color: var(--primary-red); width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        input { width: 100%; padding: 15px; margin-bottom: 12px; border: 2px solid #f0f0f0; border-radius: 12px; font-size: 16px; outline: none; background: #fafafa; }
+        input:disabled { background: #e8f5e9; color: var(--success-green); font-weight: bold; }
+        .btn-row { display: flex; gap: 10px; margin-bottom: 25px; }
+        .btn { flex: 1; padding: 15px; border: none; border-radius: 12px; font-weight: bold; color: white; cursor: pointer; }
+        .save { background: var(--success-green); } .edit { background: #616161; }
+        .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 140px; height: 140px; border-radius: 50%; border: 8px solid #fff; color: white; font-size: 32px; font-weight: bold; display: block; margin: 0 auto 25px; cursor: pointer; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7); } 70% { box-shadow: 0 0 0 35px rgba(211, 47, 47, 0); } 100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); } }
+        .siren-btn { width: 100%; padding: 18px; border-radius: 12px; background: #6a1b9a; color: white; font-weight: bold; border: none; margin-bottom: 25px; font-size: 18px; cursor: pointer; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .q-btn { aspect-ratio: 1/1; border: none; border-radius: 18px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; }
+        .p-btn { background: #1565c0; } .f-btn { background: #e65100; } .a-btn { background: var(--success-green); }
+        
+        /* Modal Styles for Rating and Info */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; padding: 20px; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .modal-content { background: white; width: 100%; max-width: 400px; border-radius: 25px; padding: 30px; text-align: center; position: relative; }
+        .star-row { font-size: 35px; color: #ffca28; margin: 20px 0; cursor: pointer; }
+        .footer { margin-top: 30px; font-size: 15px; text-align: center; border-top: 1px solid #eee; padding-top: 20px; color: #555; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div id="info-modal" class="modal">
-    <div class="modal-content">
-        <h2 style="color:#d32f2f; border-bottom: 2px solid #eee; padding-bottom: 10px;">विस्तृत मार्गदर्शिका एवं नियम</h2>
-        <div style="font-size: 14px; line-height: 1.7; color: #444;">
-            <h3 style="color:#d32f2f;">१. परिचय</h3>
-            <p>'जन सुरक्षा' एक आपातकालीन ऐप है जिसे **अशोक गिरी** द्वारा विकसित किया गया है। यह ऐप संकट के समय आपकी सुरक्षा सुनिश्चित करने के लिए बनाया गया है।</p>
-            <h3 style="color:#d32f2f;">२. गोपनीयता नीति</h3>
-            <p>हम आपकी प्राइवेसी का सम्मान करते हैं। आपके नंबर केवल आपके फोन में सुरक्षित रहते हैं। हम कोई भी डेटा सर्वर पर नहीं भेजते।</p>
-            <h3 style="color:#d32f2f;">३. संपर्क</h3>
-            <p><b>विकासकर्ता:</b> अशोक गिरी<br><b>स्थान:</b> खटीमा, उत्तराखंड</p>
-        </div>
-        <button onclick="closeInfo()" style="width:100%; background:#d32f2f; color:white; border:none; padding:15px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:15px;">ठीक है</button>
+    <div class="modal-content" style="text-align: left;">
+        <h2 style="color:var(--primary-red); border-bottom: 2px solid #eee; padding-bottom: 10px;">विस्तृत मार्गदर्शिका एवं नियम</h2>
+        <p><b>१. परिचय:</b> 'जन सुरक्षा' अशोक गिरी जी द्वारा विकसित एक आपातकालीन ऐप है।</p>
+        <p><b>२. गोपनीयता नीति:</b> हम आपकी प्राइवेसी का सम्मान करते हैं। आपके नंबर केवल आपके फोन में सुरक्षित रहते हैं।</p>
+        <p><b>३. संपर्क:</b> विकासकर्ता: अशोक गिरी, स्थान: खटीमा, उत्तराखंड।</p>
+        <button onclick="closeModal('info-modal')" style="width:100%; background:var(--primary-red); color:white; border:none; padding:15px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:15px;">ठीक है</button>
     </div>
 </div>
 
 <div id="rating-modal" class="modal">
-    <div class="modal-content" style="text-align: center;">
-        <h2 style="color:#d32f2f;">रेटिंग दें ⭐</h2>
-        <p>**अशोक गिरी** जी के इस प्रयास के लिए अपनी रेटिंग चुनें:</p>
-        <div style="font-size: 35px; color: #ffca28; margin: 20px 0; cursor: pointer;">
-            <span onclick="rate(1)">⭐</span><span onclick="rate(2)">⭐</span><span onclick="rate(3)">⭐</span><span onclick="rate(4)">⭐</span><span onclick="rate(5)">⭐</span>
+    <div class="modal-content">
+        <h2 style="color:var(--primary-red);">रेटिंग दें ⭐</h2>
+        <p><b>अशोक गिरी</b> जी के इस प्रयास के लिए अपनी रेटिंग चुनें:</p>
+        <div class="star-row">
+            <span onclick="giveRate(1)">⭐</span><span onclick="giveRate(2)">⭐</span><span onclick="giveRate(3)">⭐</span><span onclick="giveRate(4)">⭐</span><span onclick="giveRate(5)">⭐</span>
         </div>
-        <p id="rate-status" style="font-weight: bold; color: #2e7d32;"></p>
-        <button onclick="closeRating()" style="width:100%; background:#616161; color:white; border:none; padding:12px; border-radius:10px; cursor:pointer;">बाद में</button>
+        <p id="rate-msg" style="color:var(--success-green); font-weight:bold;"></p>
+        <button onclick="closeModal('rating-modal')" style="width:100%; background:#616161; color:white; border:none; padding:12px; border-radius:10px; cursor:pointer;">बाद में</button>
     </div>
 </div>
 
 <div class="app-card">
     <div class="top-icons">
         <button class="icon-btn" onclick="shareApp()">🔗</button>
-        <button class="icon-btn" onclick="showInfo()">ⓘ</button>
+        <button class="icon-btn" onclick="openModal('info-modal')">ⓘ</button>
     </div>
     <div class="header">जन सुरक्षा</div>
-    <input type="tel" id="n1" placeholder="मोबाइल नंबर 1">
-    <input type="tel" id="n2" placeholder="मोबाइल नंबर 2">
+    
+    <input type="tel" id="n1" placeholder="आपातकालीन मोबाइल नंबर 1">
+    <input type="tel" id="n2" placeholder="आपातकालीन मोबाइल नंबर 2">
+    <input type="url" id="wg" placeholder="व्हाट्सएप ग्रुप लिंक (यदि हो)">
+
     <div class="btn-row">
-        <button class="btn save" onclick="lock()">💾 सुरक्षित</button>
-        <button class="btn edit" onclick="unlock()">✏️ एडिट</button>
+        <button class="btn save" onclick="lock()">💾 सुरक्षित करें</button>
+        <button class="btn edit" onclick="unlock()">✏️ एडिट करें</button>
     </div>
+
     <button class="sos-btn" onclick="sos()">SOS</button>
     <button id="s" class="siren-btn" onclick="tS()">🚨 सायरन बजाएं</button>
+
     <div class="grid">
-        <button class="q-btn p-btn" onclick="window.open('tel:112')">👮 112</button>
-        <button class="q-btn f-btn" onclick="window.open('tel:101')">🔥 101</button>
-        <button class="q-btn a-btn" onclick="window.open('tel:108')">🚑 108</button>
+        <button class="q-btn p-btn" onclick="window.open('tel:112')">👮<br>पुलिस 112</button>
+        <button class="q-btn f-btn" onclick="window.open('tel:101')">🔥<br>फायर 101</button>
+        <button class="q-btn a-btn" onclick="window.open('tel:108')">🚑<br>एम्बुलेंस 108</button>
     </div>
+
     <div style="text-align:center; margin-top:15px;">
-        <button onclick="showRating()" style="background:none; border:1px solid #d32f2f; color:#d32f2f; padding:5px 10px; border-radius:20px; font-size:11px; cursor:pointer;">रेटिंग दें ⭐</button>
+        <button onclick="openModal('rating-modal')" style="background:none; border:1px solid var(--primary-red); color:var(--primary-red); padding:5px 15px; border-radius:20px; font-size:12px; cursor:pointer; font-weight:bold;">रेटिंग दें ⭐</button>
     </div>
+
     <div class="footer">विकसितकर्ता: अशोक गिरी</div>
 </div>
 
 <script>
-    function showInfo() { document.getElementById('info-modal').style.display = 'flex'; }
-    function closeInfo() { document.getElementById('info-modal').style.display = 'none'; }
-    function showRating() { document.getElementById('rating-modal').style.display = 'flex'; }
-    function closeRating() { document.getElementById('rating-modal').style.display = 'none'; }
-    function rate(s) { document.getElementById('rate-status').innerText = "धन्यवाद! आपने " + s + " स्टार दिए।"; setTimeout(closeRating, 1500); }
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     
-    function shareApp() {
-        const text = "नमस्ते, अशोक गिरी जी द्वारा बनाया गया 'जन सुरक्षा' ऐप इंस्टॉल करें: ";
-        if (navigator.share) { navigator.share({ title: 'जन सुरक्षा', text: text, url: window.location.href }); }
-        else { prompt("लिंक कॉपी करें:", window.location.href); }
+    function giveRate(s) {
+        document.getElementById('rate-msg').innerText = "धन्यवाद! आपने " + s + " स्टार दिए।";
+        setTimeout(() => closeModal('rating-modal'), 1500);
     }
 
     function lock() {
         localStorage.setItem('n1', document.getElementById('n1').value);
         localStorage.setItem('n2', document.getElementById('n2').value);
-        document.getElementById('n1').disabled = true;
-        document.getElementById('n2').disabled = true;
-        alert("अशोक गिरी: आपका डेटा सुरक्षित है!");
+        localStorage.setItem('wg', document.getElementById('wg').value);
+        toggleFields(true);
+        alert("अशोक गिरी: आपका डेटा सुरक्षित कर दिया गया है!");
     }
-    function unlock() { document.getElementById('n1').disabled = false; document.getElementById('n2').disabled = false; }
+
+    function unlock() { toggleFields(false); }
+
+    function toggleFields(status) {
+        ['n1', 'n2', 'wg'].forEach(id => document.getElementById(id).disabled = status);
+    }
 
     window.onload = () => {
-        let n1 = localStorage.getItem('n1');
-        if(n1) { document.getElementById('n1').value = n1; document.getElementById('n1').disabled = true; }
+        ['n1', 'n2', 'wg'].forEach(id => {
+            let val = localStorage.getItem(id);
+            if(val) { document.getElementById(id).value = val; document.getElementById(id).disabled = true; }
+        });
     };
-    
+
+    function sos() {
+        let n1 = localStorage.getItem('n1');
+        let wg = localStorage.getItem('wg');
+        if(!n1) return alert("पहले नंबर सुरक्षित करें!");
+        navigator.geolocation.getCurrentPosition(p => {
+            let loc = `http://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`;
+            let msg = `आपातकालीन सूचना! मैं खतरे में हूँ। लोकेशन: ${loc}`;
+            window.open(`sms:${n1}?body=${encodeURIComponent(msg)}`, '_blank');
+            if(wg) setTimeout(() => window.open(wg, '_blank'), 2000);
+        }, () => alert("GPS ऑन करें!"), {enableHighAccuracy:true});
+    }
+
     let ctx = null, o = null, active = false, interval = null;
     function tS() {
         if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -124,14 +145,10 @@
         } else { if(o) o.stop(); clearInterval(interval); active = false; document.getElementById('s').innerText = "🚨 सायरन बजाएं"; }
     }
 
-    function sos() {
-        let n1 = localStorage.getItem('n1');
-        if(!n1) return alert("पहले नंबर सुरक्षित करें!");
-        navigator.geolocation.getCurrentPosition(p => {
-            let loc = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
-            let msg = `आपातकालीन सूचना! मेरी सुरक्षा खतरे में है। मेरी लोकेशन: ${loc}`;
-            window.open(`sms:${n1}?body=${encodeURIComponent(msg)}`, '_blank');
-        }, () => alert("GPS ऑन करें!"), {enableHighAccuracy:true});
+    function shareApp() {
+        const text = "अशोक गिरी जी द्वारा बनाया गया 'जन सुरक्षा' ऐप इंस्टॉल करें: ";
+        if (navigator.share) navigator.share({ title: 'जन सुरक्षा', text: text, url: window.location.href });
+        else prompt("लिंक कॉपी करें:", window.location.href);
     }
 </script>
 </body>
