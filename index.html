@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jan Suraksha - Hyper Fast</title>
+    <title>Jan Suraksha - Final Fix</title>
     <style>
         * { box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial; background: #f0f2f5; margin: 0; padding: 10px; display: flex; justify-content: center; }
@@ -15,7 +14,7 @@
         .btn-row { display: flex; gap: 8px; margin-bottom: 15px; }
         .btn { flex: 1; padding: 10px; border: none; border-radius: 8px; font-weight: bold; color: white; cursor: pointer; font-size: 13px; }
         .save { background: #2e7d32; } .edit { background: #757575; }
-        .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 110px; height: 110px; border-radius: 50%; border: 5px solid #fff; color: white; font-size: 24px; font-weight: bold; display: block; margin: 0 auto 15px; cursor: pointer; box-shadow: 0 5px 15px rgba(239, 82, 82, 0.4); }
+        .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 110px; height: 110px; border-radius: 50%; border: 5px solid #fff; color: white; font-size: 24px; font-weight: bold; display: block; margin: 0 auto 15px; cursor: pointer; }
         .siren-btn { width: 100%; padding: 12px; border-radius: 8px; background: #6a1b9a; color: white; font-weight: bold; border: none; margin-bottom: 15px; font-size: 16px; }
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
         .q-btn { aspect-ratio: 1/1; border: none; border-radius: 10px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; }
@@ -36,9 +35,9 @@
     <button class="sos-btn" onclick="sos()">SOS</button>
     <button id="s" class="siren-btn" onclick="tS()">🚨 सायरन बजाएं</button>
     <div class="grid">
-        <button class="q-btn p-btn" onclick="if(confirm('112 कॉल करें?')) window.open('tel:112')">👮<br>112</button>
-        <button class="q-btn f-btn" onclick="if(confirm('101 कॉल करें?')) window.open('tel:101')">🔥<br>101</button>
-        <button class="q-btn a-btn" onclick="if(confirm('108 कॉल करें?')) window.open('tel:108')">🚑<br>108</button>
+        <button class="q-btn p-btn" onclick="if(confirm('112 कॉल?')) window.open('tel:112')">👮<br>112</button>
+        <button class="q-btn f-btn" onclick="if(confirm('101 कॉल?')) window.open('tel:101')">🔥<br>101</button>
+        <button class="q-btn a-btn" onclick="if(confirm('108 कॉल?')) window.open('tel:108')">🚑<br>108</button>
     </div>
     <div class="footer">Developed by: Ashok Giri</div>
 </div>
@@ -50,13 +49,14 @@
             let val = document.getElementById(id).value;
             if(val) { localStorage.setItem(id, val); document.getElementById(id).disabled = true; }
         });
-        alert("डेटा सुरक्षित हो गया!");
+        alert("डेटा लॉक हो गया!");
     }
     function unlock() { ids.forEach(id => document.getElementById(id).disabled = false); }
     window.onload = () => {
         ids.forEach(id => {
-            let v = localStorage.getItem(id);
-            if(v) { document.getElementById(id).value = v; document.getElementById(id).disabled = true; }
+            const v = {};
+            ids.forEach(id => v[id] = localStorage.getItem(id));
+            if(v.n1) { ids.forEach(id => { if(v[id]){document.getElementById(id).value = v[id]; document.getElementById(id).disabled = true;}}); }
         });
     };
 
@@ -78,24 +78,32 @@
         let wa = localStorage.getItem('wa');
         let msg = "मुझे आपकी जरूरत है, कृपया मेरी मदद करें।";
 
-        if(!n1) return alert("नंबर भरें!");
+        if(!n1) return alert("नंबर सेव करें!");
 
         navigator.geolocation.getCurrentPosition(p => {
-            let loc = `http://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`;
-            let fullMsg = `${msg} लोकेशन: ${loc}`;
+            let loc = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
+            let fullMsg = `${msg} मेरी लोकेशन: ${loc}`;
 
-            // 1. सबसे पहले व्हाट्सएप खोलें (इसमें सेंड दबाना होगा)
+            // 1. सबसे पहले व्हाट्सएप खोलें (ग्रुप के लिए विशेष लिंक सुधार)
             if(wa) {
-                let waUrl = wa.includes('?') ? `${wa}&text=${encodeURIComponent(fullMsg)}` : `${wa}?text=${encodeURIComponent(fullMsg)}`;
-                window.open(waUrl, '_blank');
+                let cleanWa = wa.trim();
+                let waAction = cleanWa.includes('?') ? `${cleanWa}&text=${encodeURIComponent(fullMsg)}` : `${cleanWa}?text=${encodeURIComponent(fullMsg)}`;
+                window.open(waAction, '_blank');
             }
 
-            // 2. तुरंत बाद SMS भेजें
+            // 2. नंबर 1 को SMS
             setTimeout(() => {
-                window.location.href = `sms:${n1},${n2 || ''}?body=${encodeURIComponent(fullMsg)}`;
+                window.open(`sms:${n1}?body=${encodeURIComponent(fullMsg)}`, '_blank');
             }, 1000);
 
-        }, () => alert("लोकेशन नहीं मिल सकी!"), {enableHighAccuracy:true});
+            // 3. नंबर 2 को SMS
+            if(n2) {
+                setTimeout(() => {
+                    window.open(`sms:${n2}?body=${encodeURIComponent(fullMsg)}`, '_blank');
+                }, 2000);
+            }
+
+        }, () => alert("GPS चालू करें!"), {enableHighAccuracy:true});
     }
 </script>
 </body>
