@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>जन सुरक्षा - अशोक गिरी</title>
+    <title>जन सुरक्षा प्लस - अशोक गिरी</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#d32f2f">
     <style>
-        :root { --primary-red: #d32f2f; --success-green: #2e7d32; }
+        :root { --primary-red: #d32f2f; --success-green: #2e7d32; --deep-blue: #1a5276; }
         * { box-sizing: border-box; transition: 0.3s ease; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .app-card { background: #fff; border-radius: 25px; padding: 25px; width: 100%; max-width: 400px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border-top: 8px solid var(--primary-red); position: relative; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; }
+        .app-card { background: #fff; border-radius: 25px; padding: 25px; width: 100%; max-width: 400px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border-top: 8px solid var(--primary-red); position: relative; margin-bottom: 20px; }
         .header { color: var(--primary-red); font-size: 28px; font-weight: bold; margin-bottom: 25px; text-align: center; }
         .top-icons { position: absolute; top: 18px; right: 20px; display: flex; gap: 15px; }
         .icon-btn { background: #f9f9f9; border: 1px solid #eee; font-size: 18px; cursor: pointer; color: var(--primary-red); width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
@@ -25,20 +25,24 @@
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
         .q-btn { aspect-ratio: 1/1; border: none; border-radius: 18px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; }
         .p-btn { background: #1565c0; } .f-btn { background: #e65100; } .a-btn { background: var(--success-green); }
+        .info-section { background: #fff; width: 100%; max-width: 400px; border-radius: 20px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: left; }
+        .info-title { color: var(--deep-blue); border-bottom: 2px solid var(--deep-blue); padding-bottom: 5px; margin-bottom: 15px; font-size: 18px; font-weight: bold; }
+        .info-text { font-size: 14px; line-height: 1.6; color: #444; }
+        .disclaimer-box { background: #fff5f5; border: 1px solid #eccaca; padding: 15px; border-radius: 10px; color: #c0392b; font-size: 13px; margin-top: 10px; }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; padding: 20px; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .modal-content { background: white; width: 100%; max-width: 400px; border-radius: 25px; padding: 30px; text-align: center; position: relative; }
         .star-row { font-size: 35px; color: #ffca28; margin: 20px 0; cursor: pointer; }
-        .footer { margin-top: 30px; font-size: 15px; text-align: center; border-top: 1px solid #eee; padding-top: 20px; color: #555; font-weight: bold; }
+        .footer { font-size: 14px; color: #777; padding: 20px; text-align: center; }
     </style>
 </head>
 <body>
 
 <div id="info-modal" class="modal">
     <div class="modal-content" style="text-align: left;">
-        <h2 style="color:var(--primary-red); border-bottom: 2px solid #eee; padding-bottom: 10px;">विस्तृत मार्गदर्शिका एवं नियम</h2>
-        <p><b>१. परिचय:</b> 'जन सुरक्षा' अशोक गिरी जी द्वारा विकसित एक आपातकालीन ऐप है।</p>
-        <p><b>२. गोपनीयता नीति:</b> हम आपकी प्राइवेसी का सम्मान करते हैं। आपके नंबर केवल आपके फोन में सुरक्षित रहते हैं।</p>
-        <p><b>३. संपर्क:</b> विकासकर्ता: अशोक गिरी, स्थान: खटीमा, उत्तराखंड।</p>
+        <h2 style="color:var(--primary-red); border-bottom: 2px solid #eee; padding-bottom: 10px;">मार्गदर्शिका एवं नियम</h2>
+        <p><b>१. परिचय:</b> 'जन सुरक्षा प्लस' अशोक गिरी जी द्वारा विकसित एक आपातकालीन ऐप है।</p>
+        <p><b>२. गोपनीयता:</b> आपके नंबर केवल आपके फोन (LocalStorage) में सुरक्षित रहते हैं।</p>
+        <p><b>३. संपर्क:</b> विकासकर्ता: अशोक गिरी, खटीमा, उत्तराखंड।</p>
         <button onclick="closeModal('info-modal')" style="width:100%; background:var(--primary-red); color:white; border:none; padding:15px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:15px;">ठीक है</button>
     </div>
 </div>
@@ -46,7 +50,7 @@
 <div id="rating-modal" class="modal">
     <div class="modal-content">
         <h2 style="color:var(--primary-red);">रेटिंग दें ⭐</h2>
-        <p><b>अशोक गिरी</b> जी के इस प्रयास के लिए अपनी रेटिंग चुनें:</p>
+        <p><b>अशोक गिरी</b> जी के प्रयास के लिए रेटिंग चुनें:</p>
         <div class="star-row">
             <span onclick="giveRate(1)">⭐</span><span onclick="giveRate(2)">⭐</span><span onclick="giveRate(3)">⭐</span><span onclick="giveRate(4)">⭐</span><span onclick="giveRate(5)">⭐</span>
         </div>
@@ -60,11 +64,11 @@
         <button class="icon-btn" onclick="shareApp()">🔗</button>
         <button class="icon-btn" onclick="openModal('info-modal')">ⓘ</button>
     </div>
-    <div class="header">जन सुरक्षा</div>
+    <div class="header">जन सुरक्षा प्लस</div>
     
     <input type="tel" id="n1" placeholder="आपातकालीन मोबाइल नंबर 1">
     <input type="tel" id="n2" placeholder="आपातकालीन मोबाइल नंबर 2">
-    <input type="url" id="wg" placeholder="व्हाट्सएप ग्रुप लिंक डालें">
+    <input type="url" id="wg" placeholder="व्हाट्सएप ग्रुप लिंक">
 
     <div class="btn-row">
         <button class="btn save" onclick="lock()">💾 सुरक्षित करें</button>
@@ -75,95 +79,82 @@
     <button id="s" class="siren-btn" onclick="tS()">🚨 सायरन बजाएं</button>
 
     <div class="grid">
-        <button class="q-btn p-btn" onclick="window.open('tel:112')">👮<br>पुलिस 112</button>
-        <button class="q-btn f-btn" onclick="window.open('tel:101')">🔥<br>फायर 101</button>
-        <button class="q-btn a-btn" onclick="window.open('tel:108')">🚑<br>एम्बुलेंस 108</button>
+        <button class="q-btn p-btn" onclick="window.open('tel:112')">👮<br>पुलिस</button>
+        <button class="q-btn f-btn" onclick="window.open('tel:101')">🔥<br>फायर</button>
+        <button class="q-btn a-btn" onclick="window.open('tel:108')">🚑<br>एम्बुलेंस</button>
     </div>
 
-    <div style="text-align:center; margin-top:15px;">
-        <button onclick="openModal('rating-modal')" style="background:none; border:1px solid var(--primary-red); color:var(--primary-red); padding:5px 15px; border-radius:20px; font-size:12px; cursor:pointer; font-weight:bold;">रेटिंग दें ⭐</button>
+    <div style="text-align:center; margin-top:20px;">
+        <button onclick="openModal('rating-modal')" style="background:none; border:1px solid var(--primary-red); color:var(--primary-red); padding:8px 20px; border-radius:20px; font-size:14px; cursor:pointer; font-weight:bold;">रेटिंग दें ⭐</button>
     </div>
-
-    <div class="footer">विकसितकर्ता: अशोक गिरी</div>
 </div>
+
+<div class="info-section">
+    <div class="info-title">हमारे बारे में (About Us)</div>
+    <div class="info-text">
+        <p><strong>'जन सुरक्षा प्लस'</strong> एक निजी सुरक्षा ऐप है जिसे <strong>अशोक गिरी (खटीमा, उत्तराखंड)</strong> द्वारा विकसित किया गया है। इसका उद्देश्य संकट के समय नागरिकों को त्वरित सहायता प्रदान करना है।</p>
+    </div>
+</div>
+
+<div class="info-section">
+    <div class="info-title">गोपनीयता नीति (Privacy Policy)</div>
+    <div class="info-text">
+        <p>आपकी गोपनीयता <strong>अशोक गिरी</strong> की प्राथमिकता है। आपके द्वारा भरे गए नंबर केवल आपके फोन की मेमोरी में सुरक्षित रहते हैं। हम आपका डेटा साझा नहीं करते हैं।</p>
+    </div>
+</div>
+
+<div class="info-section">
+    <div class="disclaimer-box">
+        <strong>अस्वीकरण:</strong> यह ऐप व्यक्तिगत प्रोजेक्ट है और इसका सरकारी योजना (jansuraksha.gov.in) से कोई संबंध नहीं है।
+    </div>
+</div>
+
+<div class="footer">विकसितकर्ता: अशोक गिरी (खटीमा) <br>© 2026 जन सुरक्षा प्लस</div>
 
 <script>
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    
     function giveRate(s) {
         document.getElementById('rate-msg').innerText = "धन्यवाद! आपने " + s + " स्टार दिए।";
         setTimeout(() => closeModal('rating-modal'), 1500);
     }
-
     function lock() {
         localStorage.setItem('n1', document.getElementById('n1').value);
         localStorage.setItem('n2', document.getElementById('n2').value);
         localStorage.setItem('wg', document.getElementById('wg').value);
         toggleFields(true);
-        alert("अशोक गिरी: आपका डेटा सुरक्षित कर दिया गया है!");
+        alert("अशोक गिरी: डेटा सुरक्षित कर दिया गया है!");
     }
-
     function unlock() { toggleFields(false); }
-
     function toggleFields(status) {
         ['n1', 'n2', 'wg'].forEach(id => document.getElementById(id).disabled = status);
     }
-
     window.onload = () => {
         ['n1', 'n2', 'wg'].forEach(id => {
             let val = localStorage.getItem(id);
             if(val) { document.getElementById(id).value = val; document.getElementById(id).disabled = true; }
         });
     };
-
     function sos() {
         let n1 = localStorage.getItem('n1');
-        let wg = localStorage.getItem('wg');
         if(!n1) return alert("पहले नंबर सुरक्षित करें!");
-        
         navigator.geolocation.getCurrentPosition(p => {
-            let lat = p.coords.latitude;
-            let lon = p.coords.longitude;
-            let loc = `https://www.google.com/maps?q=${lat},${lon}`;
-            let msg = `आपातकालीन सूचना! मैं खतरे में हूँ। मेरी लोकेशन: ${loc}`;
-            
-            // १. पहले नंबर १ पर SMS भेजें
-            window.open(`sms:${n1}?body=${encodeURIComponent(msg)}`, '_blank');
-            
-            // २. २ सेकंड बाद व्हाट्सएप ग्रुप लिंक खोलें
-            if(wg) {
-                setTimeout(() => {
-                    window.open(wg, '_blank');
-                }, 2000);
-            }
+            let loc = `http://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`;
+            window.open(`sms:${n1}?body=SOS! मेरी लोकेशन: ${loc}`, '_blank');
         }, () => alert("GPS ऑन करें!"), {enableHighAccuracy:true});
     }
-
-    let ctx = null, o = null, active = false, interval = null;
+    let ctx = null, o = null, active = false;
     function tS() {
         if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
         if(!active) {
-            o = ctx.createOscillator(); let g = ctx.createGain(); o.type = 'triangle';
-            o.connect(g); g.connect(ctx.destination); o.start(); active = true;
-            document.getElementById('s').innerText = "🛑 सायरन बंद करें";
-            interval = setInterval(() => {
-                o.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.5);
-                o.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 1);
-            }, 1000);
-        } else { if(o) o.stop(); clearInterval(interval); active = false; document.getElementById('s').innerText = "🚨 सायरन बजाएं"; }
+            o = ctx.createOscillator(); o.type = 'triangle'; o.connect(ctx.destination); o.start();
+            active = true; document.getElementById('s').innerText = "🛑 सायरन बंद करें";
+        } else { if(o) o.stop(); active = false; document.getElementById('s').innerText = "🚨 सायरन बजाएं"; }
     }
-
     function shareApp() {
-        const text = "अशोक गिरी जी द्वारा बनाया गया 'जन सुरक्षा' ऐप इंस्टॉल करें: ";
-        if (navigator.share) navigator.share({ title: 'जन सुरक्षा', text: text, url: window.location.href });
+        const text = "अशोक गिरी जी का 'जन सुरक्षा प्लस' ऐप इंस्टॉल करें: ";
+        if (navigator.share) navigator.share({ title: 'जन सुरक्षा प्लस', text: text, url: window.location.href });
         else prompt("लिंक कॉपी करें:", window.location.href);
-    }
-
-    // शुद्ध छोटा 'if' सिंटैक्स
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js')
-        .then(() => console.log("अशोक गिरी: सुरक्षा सेवा सक्रिय है!"));
     }
 </script>
 </body>
