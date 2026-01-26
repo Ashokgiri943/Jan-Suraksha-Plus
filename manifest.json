@@ -1,21 +1,32 @@
 {
-  "short_name": "जन सुरक्षा+",
-  "name": "जन सुरक्षा प्लस - अशोक गिरी",
-  "description": "अशोक गिरी (खटीमा) द्वारा विकसित आपातकालीन सुरक्षा ऐप।",
+  "name": "Jan Suraksha Plus",
+  "short_name": "JanSuraksha",
+  "description": "अशोक गिरी द्वारा विकसित आपातकालीन सुरक्षा ऐप (खटीमा, उत्तराखंड)",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#d32f2f",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "icon.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "icon.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
-  "start_url": "index.html",
-  "display": "standalone",
-  "theme_color": "#d32f2f",
-  "background_color": "#ffffff"
+  "screenshots": [
+    {
+      "src": "screenshot.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Jan Suraksha Plus Home Screen"
+    }
+  ]
 }
