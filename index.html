@@ -38,9 +38,15 @@
         .q-btn { aspect-ratio: 1/1; border: none; border-radius: 18px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; }
         .p-btn { background: #1565c0; } .f-btn { background: #e65100; } .a-btn { background: var(--success-green); }
         
+        /* New Sections Styling */
+        .rating-card { background: #fff; border-radius: 20px; padding: 20px; width: 100%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: center; }
+        .stars { display: flex; justify-content: center; gap: 10px; margin: 15px 0; font-size: 30px; cursor: pointer; color: #ccc; }
+        .stars .active { color: #f1c40f; }
+        .rating-text { font-size: 14px; color: #555; font-weight: bold; }
+
         .info-section { background: #fff; width: 100%; max-width: 400px; border-radius: 20px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 20px; }
         .info-title { color: var(--deep-blue); border-bottom: 2px solid var(--deep-blue); padding-bottom: 5px; margin-bottom: 15px; font-size: 18px; font-weight: bold; text-align: left; }
-        .scroll-box { max-height: 250px; overflow-y: auto; text-align: left; font-size: 14px; line-height: 1.8; color: #444; }
+        .scroll-box { max-height: 400px; overflow-y: auto; text-align: left; font-size: 14px; line-height: 1.8; color: #444; }
         .disclaimer-box { background: #fff5f5; border: 1px solid #eccaca; padding: 15px; border-radius: 10px; color: #c0392b; font-size: 13px; margin-top: 10px; }
         
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; padding: 20px; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
@@ -51,14 +57,23 @@
 <body>
 
 <div id="info-modal" class="modal">
-    <div class="modal-content">
-        <h2 style="color:var(--primary-red); border-bottom: 2px solid #eee; padding-bottom: 10px;">मार्गदर्शिका</h2>
+    <div class="modal-content" style="max-height: 90vh; overflow-y: auto;">
+        <h2 style="color:var(--primary-red); border-bottom: 2px solid #eee; padding-bottom: 10px; text-align: center;">App Guide</h2>
         <div class="scroll-box">
-            <p><b>१. परिचय:</b> 'जन सुरक्षा प्लस' अशोक गिरी जी द्वारा विकसित एक आपातकालीन ऐप है।</p>
-            <p><b>२. गोपनीयता:</b> आपका डेटा आपके फोन में सुरक्षित रहता है।</p>
-            <p><b>३. संपर्क:</b> विकासकर्ता: अशोक गिरी, खटीमा।</p>
+            <h3 style="color:var(--deep-blue);">१. चलाने की पूर्ण विधि</h3>
+            <p>यह सुरक्षा ऐप आपके संकट के समय को ध्यान में रखकर बनाया गया है। ऐप का उपयोग शुरू करने के लिए सबसे पहले ऊपर दिए गए 'आपातकालीन मोबाइल नंबर' बॉक्स में अपने दो विश्वसनीय परिजनों के नंबर दर्ज करें। व्हाट्सएप ग्रुप लिंक बॉक्स में अपने सुरक्षा समूह का लिंक डालें और 'सुरक्षित करें' बटन दबाएं। अब ऐप सक्रिय है। किसी भी आपात स्थिति में बड़े लाल 'SOS' बटन को दबाते ही आपकी लाइव लोकेशन आपके सेव किए गए दोनों नंबरों और व्हाट्सएप ग्रुप पर तुरंत चली जाएगी। पुलिस (112), फायर (101) और एम्बुलेंस (108) बटन सीधे कॉल और लोकेशन अलर्ट हेतु इस्तेमाल करें।</p>
+
+            <hr>
+
+            <h3 style="color:var(--deep-blue);">Security & Privacy</h3>
+            <p>आपकी गोपनीयता हमारे लिए सर्वोपरि है। यह ऐप आपके द्वारा दर्ज किए गए किसी भी नंबर, नाम या ग्रुप लिंक को किसी बाहरी सर्वर पर स्टोर नहीं करता है। संपूर्ण जानकारी आपके फोन के सुरक्षित 'लोकल स्टोरेज' में रहती है। लोकेशन का उपयोग केवल तभी होता है जब आप स्वयं किसी मदद हेतु बटन दबाते हैं। यह पूरी तरह सुरक्षित, निजी और विज्ञापन मुक्त प्लेटफॉर्म है।</p>
+
+            <hr>
+
+            <h3 style="color:var(--deep-blue);">About Us</h3>
+            <p>'जन सुरक्षा प्लस' का निर्माण अशोक गिरी (खटीमा, उत्तराखंड) द्वारा समाज सेवा और जन-सुरक्षा के नेक उद्देश्य से किया गया है। हमारा लक्ष्य संकट के समय प्रत्येक नागरिक को एक क्लिक पर सहायता उपलब्ध कराना है।</p>
         </div>
-        <button onclick="closeModal('info-modal')" style="width:100%; background:var(--primary-red); color:white; border:none; padding:15px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:15px;">ठीक है</button>
+        <button onclick="closeModal('info-modal')" style="width:100%; background:var(--primary-red); color:white; border:none; padding:15px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:15px;">ठीक है / OK</button>
     </div>
 </div>
 
@@ -82,16 +97,28 @@
     <button id="s" class="siren-btn" onclick="tS()">🚨 सायरन बजाएं</button>
 
     <div class="grid">
-        <button class="q-btn p-btn" onclick="window.open('tel:112')">👮<br>पुलिस</button>
-        <button class="q-btn f-btn" onclick="window.open('tel:101')">🔥<br>फायर</button>
-        <button class="q-btn a-btn" onclick="window.open('tel:108')">🚑<br>एम्बुलेंस</button>
+        <button class="q-btn p-btn" onclick="callService('112', 'पुलिस')">👮<br>पुलिस</button>
+        <button class="q-btn f-btn" onclick="callService('101', 'फायर ब्रिगेड')">🔥<br>फायर</button>
+        <button class="q-btn a-btn" onclick="callService('108', 'एम्बुलेंस')">🚑<br>एम्बुलेंस</button>
     </div>
 </div>
 
+<div class="rating-card">
+    <div class="info-title" style="text-align: center; border: none;">Rate Our App</div>
+    <div class="stars" id="star-container">
+        <span onclick="setRating(1)">★</span>
+        <span onclick="setRating(2)">★</span>
+        <span onclick="setRating(3)">★</span>
+        <span onclick="setRating(4)">★</span>
+        <span onclick="setRating(5)">★</span>
+    </div>
+    <div id="rating-status" class="rating-text">कृपया हमें रेटिंग दें</div>
+</div>
+
 <div class="info-section">
-    <div class="info-title">हमारे बारे में</div>
+    <div class="info-title">About Us</div>
     <div class="scroll-box">
-        <p><strong>'जन सुरक्षा प्लस'</strong> अशोक गिरी (खटीमा) द्वारा समाज सेवा हेतु विकसित है।</p>
+        <p><strong>'जन सुरक्षा प्लस'</strong> अशोक गिरी (खटीमा) द्वारा समाज सेवा और सुरक्षा हेतु विकसित किया गया है।</p>
     </div>
 </div>
 
@@ -104,11 +131,10 @@
 <div class="footer">विकसितकर्ता: अशोक गिरी (खटीमा) <br>© 2026 जन सुरक्षा प्लस</div>
 
 <script>
-    // Service Worker Registration (Important for PWA)
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('जन सुरक्षा प्लस: सर्विस वर्कर सक्रिय!'))
+                .then(reg => console.log('जन सुरक्षा प्लस: सक्रिय!'))
                 .catch(err => console.log('SW Error:', err));
         });
     }
@@ -135,19 +161,54 @@
             let val = localStorage.getItem(id);
             if(val) { document.getElementById(id).value = val; document.getElementById(id).disabled = true; }
         });
+        // लोड होते ही रेटिंग चेक करें
+        let savedRating = localStorage.getItem('userRating');
+        if(savedRating) updateStars(savedRating);
     };
     
+    // Improved SOS Function
     function sos() {
         let n1 = localStorage.getItem('n1');
-        if(!n1) return alert("कृपया पहले नंबर सेव करें!");
+        let n2 = localStorage.getItem('n2');
+        let wg = localStorage.getItem('wg');
+        if(!n1 && !n2) return alert("कृपया पहले नंबर सेव करें!");
+
         navigator.geolocation.getCurrentPosition(p => {
-            let loc = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
-            window.open(`sms:${n1}?body=SOS! मेरी लोकेशन: ${loc}`, '_blank');
+            let loc = `http://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`;
+            let msg = encodeURIComponent(`🚨 SOS! मेरी लोकेशन: ${loc}`);
+            if(n1) window.open(`https://wa.me/${n1}?text=${msg}`, '_blank');
+            if(n2) setTimeout(() => window.open(`https://wa.me/${n2}?text=${msg}`, '_blank'), 2000);
+            if(wg) setTimeout(() => window.open(`${wg}?text=${msg}`, '_blank'), 4000);
         }, () => alert("GPS ऑन करें!"), {enableHighAccuracy:true});
     }
 
-    let audioCtx = null, oscillator = null, gainNode = null, active = false, sirenInterval = null;
+    // Dynamic Emergency Service Function
+    function callService(num, name) {
+        navigator.geolocation.getCurrentPosition(p => {
+            let loc = `http://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`;
+            let msg = encodeURIComponent(`अलर्ट! मुझे ${name} चाहिए। मेरी लोकेशन: ${loc}`);
+            window.location.href = `tel:${num}`;
+            setTimeout(() => { window.open(`sms:${num}?body=${msg}`, '_blank'); }, 1500);
+        }, () => { window.location.href = `tel:${num}`; }, {enableHighAccuracy:true});
+    }
 
+    // Rating Functions
+    function setRating(n) {
+        localStorage.setItem('userRating', n);
+        updateStars(n);
+        document.getElementById('rating-status').innerText = "शुक्रिया! आपने हमें " + n + " स्टार दिए हैं।";
+    }
+
+    function updateStars(n) {
+        let stars = document.querySelectorAll('.stars span');
+        stars.forEach((star, index) => {
+            if (index < n) star.classList.add('active');
+            else star.classList.remove('active');
+        });
+    }
+
+    // Original Siren Code
+    let audioCtx = null, oscillator = null, gainNode = null, active = false, sirenInterval = null;
     function tS() {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if(!active) {
