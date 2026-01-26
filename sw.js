@@ -1,22 +1,21 @@
-// जन सुरक्षा प्लस - अशोक गिरी (खटीमा)
-const CACHE_NAME = 'jan-suraksha-plus-v2';
+const CACHE_NAME = 'jan-suraksha-plus-v1';
 const ASSETS_TO_CACHE = [
+  './',
   'index.html',
   'manifest.json',
   'icon.png'
 ];
 
-// सर्विस वर्कर इंस्टॉल करना
+// Install the service worker and cache essential assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('जन सुरक्षा प्लस: फाइलें सुरक्षित की जा रही हैं');
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
 });
 
-// फाइलें लोड करना
+// Serve assets from cache when offline for smooth performance
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
@@ -24,4 +23,18 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
-// अशोक गिरी: सुरक्षा मेरा लक्ष्य है!
+
+// Clean up old caches to ensure the app stays updated
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
