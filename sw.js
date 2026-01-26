@@ -1,20 +1,22 @@
-const CACHE_NAME = 'jan-surksha-v2';
+// जन सुरक्षा प्लस - अशोक गिरी (खटीमा)
+const CACHE_NAME = 'jan-suraksha-plus-v2';
 const ASSETS_TO_CACHE = [
   'index.html',
   'manifest.json',
-  'icon.png' // इसे यहाँ जरूर जोड़ें
+  'icon.png'
 ];
 
-// इंस्टॉल इवेंट: फाइलों को कैश में डालना
+// सर्विस वर्कर इंस्टॉल करना
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
+      console.log('जन सुरक्षा प्लस: फाइलें सुरक्षित की जा रही हैं');
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
 });
 
-// फेच इवेंट: ऑफलाइन काम करने की सुविधा
+// फाइलें लोड करना
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
@@ -22,4 +24,4 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
-// अशोक गिरी: सुरक्षा सेवा सक्रिय है!
+// अशोक गिरी: सुरक्षा मेरा लक्ष्य है!
