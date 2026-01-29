@@ -1,48 +1,38 @@
-# 🛡️ Jan Suraksha Plus
-**Your Safety, Our Commitment.**
+# 🛡️ जन सुरक्षा प्लस (Jan Suraksha Plus)
+**सुरक्षा आपकी, जिम्मेदारी सबकी।**
 
-**Jan Suraksha Plus** is an advanced web-based Safety Application (PWA) developed by **Ashok Giri (Khatima, Uttarakhand)**. This project is dedicated to social service, aiming to provide immediate assistance and security to citizens during emergency situations.
-
----
-
-## ✨ Key Features
-
-* **🚨 Smart Siren:** A professional-grade high-decibel police siren sound designed to attract immediate attention during distress.
-* **🆘 SOS Messaging:** Sends an instant SMS to your pre-configured emergency contacts along with your precise GPS location.
-* **📞 Quick Dial:** One-tap calling feature for essential services: Police (112), Ambulance (108), and Fire Brigade (101).
-* **🌐 PWA Technology:** Can be installed directly from the browser without needing an App Store.
-* **📶 Offline Mode:** Powered by Service Workers, the app remains accessible even with weak or no internet connection.
-* **🔒 Data Privacy:** Your data stays with you. Emergency numbers and settings are stored locally on your device (LocalStorage) and are never sent to any server.
+**जन सुरक्षा प्लस** एक उन्नत वेब-आधारित सुरक्षा एप्लीकेशन (PWA) है जिसे **अशोक गिरी (खटीमा, उत्तराखंड)** द्वारा विकसित किया गया है। यह प्रोजेक्ट समाज सेवा और आपातकालीन स्थितियों में नागरिकों की त्वरित सहायता के उद्देश्य से बनाया गया है।
 
 ---
 
-## 🛠️ Technical Stack
+## ✨ मुख्य विशेषताएं
+
+* **🚨 स्मार्ट सायरन:** संकट के समय ध्यान आकर्षित करने के लिए उच्च-डेसीबल पुलिस सायरन।
+* **🆘 SOS अलर्ट:** एक क्लिक पर आपके परिजनों को आपकी लाइव लोकेशन के साथ व्हाट्सएप संदेश।
+* **📞 त्वरित संपर्क:** पुलिस (112), फायर (101) और एम्बुलेंस (108) के लिए सुरक्षित डायल-पैड एक्सेस।
+* **📶 ऑफलाइन मोड:** बिना इंटरनेट के भी ऐप का पूर्ण उपयोग संभव।
+* **🔒 डेटा प्राइवेसी:** आपके द्वारा दर्ज नंबर और लोकेशन डेटा पूरी तरह से आपके फोन (LocalStorage) में रहता है, किसी भी बाहरी सर्वर पर नहीं भेजा जाता।
+
+---
+
+## 🛠️ तकनीकी विवरण
 
 * **Frontend:** HTML5, CSS3, JavaScript
-* **PWA Core:** Web App Manifest (`manifest.json`), Service Workers (`sw.js`)
-* **APIs:** Geolocation API (for tracking), Web Audio API (for siren generation)
+* **PWA:** Web App Manifest, Service Workers
+* **Security:** डायल-पैड इंटीग्रेशन (सुरक्षित कॉलिंग हेतु)
 
 ---
 
-## 📲 How to Install?
+## 👨‍💻 विकसितकर्ता (Developer)
 
-1. Open the app link in your mobile **Chrome** browser.
-2. Tap the browser's **'Three Dots'** (⋮) or the Install Icon.
-3. Select **'Add to Home Screen'** or **'Install App'**.
-4. The 'Jan Suraksha Plus' icon will now be available on your home screen like a regular app.
+**अशोक गिरी** 📍 खटीमा, उधम सिंह नगर, उत्तराखंड, भारत  
+*"मेरा उद्देश्य तकनीक के माध्यम से समाज को सुरक्षित और सशक्त बनाना है।"*
 
 ---
 
-## 👨‍💻 About the Developer
+## 📄 अस्वीकरण (Disclaimer)
 
-**Ashok Giri** 📍 Khatima, Udham Singh Nagar, Uttarakhand, India  
-*"My mission is to empower society through the right use of technology."* **Instagram:** [Ashoka the great](https://www.instagram.com/)
-
----
-
-## 📄 Disclaimer
-
-This application is a personal, non-commercial project developed by Ashok Giri for social welfare. In case of real emergencies, always prioritize contacting official government helpline numbers.
+यह एक व्यक्तिगत सामाजिक कल्याण परियोजना है। यह ऐप केवल सूचना और त्वरित सहायता के लिए बनाया गया है। आपातकालीन नंबरों का उपयोग केवल वास्तविक संकट के समय ही करें। किसी भी प्रकार के दुरुपयोग के लिए विकसितकर्ता जिम्मेदार नहीं होगा।
 
 ---
-© 2026 Jan Suraksha Plus | Developed by Ashok Giri
+© 2026 जन सुरक्षा प्लस | विकसितकर्ता: अशोक गिरी
