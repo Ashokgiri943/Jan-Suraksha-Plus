@@ -3,53 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>जन सुरक्षा प्लस - अशोक गिरी</title>
+    <title>जन सुरक्षा प्लस - सुरक्षित समाज</title>
     
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon.png">
     <meta name="theme-color" content="#d32f2f">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="description" content="अशोक गिरी द्वारा विकसित आपातकालीन सुरक्षा ऐप">
+    <meta name="description" content="आपातकालीन सुरक्षा ऐप - अशोक गिरी द्वारा विकसित">
 
     <style>
         :root { --primary-red: #d32f2f; --success-green: #2e7d32; --deep-blue: #1a5276; }
         * { box-sizing: border-box; transition: 0.3s ease; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; }
-        
         .app-card { background: #fff; border-radius: 25px; padding: 25px; width: 100%; max-width: 400px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border-top: 8px solid var(--primary-red); position: relative; margin-bottom: 20px; }
         .header { color: var(--primary-red); font-size: 28px; font-weight: bold; margin-bottom: 25px; text-align: center; }
         .top-icons { position: absolute; top: 18px; right: 20px; display: flex; gap: 15px; }
         .icon-btn { background: #f9f9f9; border: 1px solid #eee; font-size: 18px; cursor: pointer; color: var(--primary-red); width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        
         input { width: 100%; padding: 15px; margin-bottom: 12px; border: 2px solid #f0f0f0; border-radius: 12px; font-size: 16px; outline: none; background: #fafafa; }
         input:disabled { background: #e8f5e9; color: var(--success-green); font-weight: bold; }
-        
         .btn-row { display: flex; gap: 10px; margin-bottom: 25px; }
         .btn { flex: 1; padding: 15px; border: none; border-radius: 12px; font-weight: bold; color: white; cursor: pointer; }
         .save { background: var(--success-green); } .edit { background: #616161; }
-        
         .sos-btn { background: radial-gradient(circle, #ff5252, #b71c1c); width: 140px; height: 140px; border-radius: 50%; border: 8px solid #fff; color: white; font-size: 32px; font-weight: bold; display: block; margin: 0 auto 25px; cursor: pointer; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7); } 70% { box-shadow: 0 0 0 35px rgba(211, 47, 47, 0); } 100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); } }
-        
         .siren-btn { width: 100%; padding: 18px; border-radius: 12px; background: #6a1b9a; color: white; font-weight: bold; border: none; margin-bottom: 25px; font-size: 18px; cursor: pointer; }
-        
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
         .q-btn { aspect-ratio: 1/1; border: none; border-radius: 18px; color: white; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; }
         .p-btn { background: #1565c0; } .f-btn { background: #e65100; } .a-btn { background: var(--success-green); }
-        
-        /* New Sections Styling */
-        .rating-card { background: #fff; border-radius: 20px; padding: 20px; width: 100%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: center; }
-        .stars { display: flex; justify-content: center; gap: 10px; margin: 15px 0; font-size: 30px; cursor: pointer; color: #ccc; }
-        .stars .active { color: #f1c40f; }
-        .rating-text { font-size: 14px; color: #555; font-weight: bold; }
-
         .info-section { background: #fff; width: 100%; max-width: 400px; border-radius: 20px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .info-title { color: var(--deep-blue); border-bottom: 2px solid var(--deep-blue); padding-bottom: 5px; margin-bottom: 15px; font-size: 18px; font-weight: bold; text-align: left; }
-        .scroll-box { max-height: 400px; overflow-y: auto; text-align: left; font-size: 14px; line-height: 1.8; color: #444; }
-        .disclaimer-box { background: #fff5f5; border: 1px solid #eccaca; padding: 15px; border-radius: 10px; color: #c0392b; font-size: 13px; margin-top: 10px; }
-        
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; padding: 20px; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .disclaimer-box { background: #fff5f5; border: 1px solid #eccaca; padding: 15px; border-radius: 10px; color: #c0392b; font-size: 12px; text-align: justify; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; padding: 20px; align-items: center; justify-content: center; }
         .modal-content { background: white; width: 100%; max-width: 400px; border-radius: 25px; padding: 30px; }
         .footer { font-size: 14px; color: #777; padding: 20px; text-align: center; }
     </style>
@@ -57,23 +40,12 @@
 <body>
 
 <div id="info-modal" class="modal">
-    <div class="modal-content" style="max-height: 90vh; overflow-y: auto;">
-        <h2 style="color:var(--primary-red); border-bottom: 2px solid #eee; padding-bottom: 10px; text-align: center;">App Guide</h2>
-        <div class="scroll-box">
-            <h3 style="color:var(--deep-blue);">१. चलाने की पूर्ण विधि</h3>
-            <p>यह सुरक्षा ऐप आपके संकट के समय को ध्यान में रखकर बनाया गया है। ऐप का उपयोग शुरू करने के लिए सबसे पहले ऊपर दिए गए 'आपातकालीन मोबाइल नंबर' बॉक्स में अपने दो विश्वसनीय परिजनों के नंबर दर्ज करें। व्हाट्सएप ग्रुप लिंक बॉक्स में अपने सुरक्षा समूह का लिंक डालें और 'सुरक्षित करें' बटन दबाएं। अब ऐप सक्रिय है। किसी भी आपात स्थिति में बड़े लाल 'SOS' बटन को दबाते ही आपकी लाइव लोकेशन आपके सेव किए गए दोनों नंबरों और व्हाट्सएप ग्रुप पर तुरंत चली जाएगी। पुलिस (112), फायर (101) और एम्बुलेंस (108) बटन सीधे कॉल और लोकेशन अलर्ट हेतु इस्तेमाल करें।</p>
-
-            <hr>
-
-            <h3 style="color:var(--deep-blue);">Security & Privacy</h3>
-            <p>आपकी गोपनीयता हमारे लिए सर्वोपरि है। यह ऐप आपके द्वारा दर्ज किए गए किसी भी नंबर, नाम या ग्रुप लिंक को किसी बाहरी सर्वर पर स्टोर नहीं करता है। संपूर्ण जानकारी आपके फोन के सुरक्षित 'लोकल स्टोरेज' में रहती है। लोकेशन का उपयोग केवल तभी होता है जब आप स्वयं किसी मदद हेतु बटन दबाते हैं। यह पूरी तरह सुरक्षित, निजी और विज्ञापन मुक्त प्लेटफॉर्म है।</p>
-
-            <hr>
-
-            <h3 style="color:var(--deep-blue);">About Us</h3>
-            <p>'जन सुरक्षा प्लस' का निर्माण अशोक गिरी (खटीमा, उत्तराखंड) द्वारा समाज सेवा और जन-सुरक्षा के नेक उद्देश्य से किया गया है। हमारा लक्ष्य संकट के समय प्रत्येक नागरिक को एक क्लिक पर सहायता उपलब्ध कराना है।</p>
-        </div>
-        <button onclick="closeModal('info-modal')" style="width:100%; background:var(--primary-red); color:white; border:none; padding:15px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:15px;">ठीक है / OK</button>
+    <div class="modal-content">
+        <h2 style="color:var(--primary-red); text-align: center;">उपयोग की शर्तें</h2>
+        <p>1. यह ऐप केवल सहायता हेतु है। गलत कॉल की जिम्मेदारी यूजर की होगी।</p>
+        <p>2. कॉल बटन केवल फोन का डायल-पैड खोलेगा।</p>
+        <p>3. आपका डेटा फोन में ही सुरक्षित रहता है।</p>
+        <button onclick="closeModal('info-modal')" style="width:100%; background:var(--primary-red); color:white; border:none; padding:15px; border-radius:12px; font-weight:bold; cursor:pointer;">मैं सहमत हूँ</button>
     </div>
 </div>
 
@@ -97,34 +69,15 @@
     <button id="s" class="siren-btn" onclick="tS()">🚨 सायरन बजाएं</button>
 
     <div class="grid">
-        <button class="q-btn p-btn" onclick="callService('112', 'पुलिस')">👮<br>पुलिस</button>
-        <button class="q-btn f-btn" onclick="callService('101', 'फायर ब्रिगेड')">🔥<br>फायर</button>
-        <button class="q-btn a-btn" onclick="callService('108', 'एम्बुलेंस')">🚑<br>एम्बुलेंस</button>
-    </div>
-</div>
-
-<div class="rating-card">
-    <div class="info-title" style="text-align: center; border: none;">Rate Our App</div>
-    <div class="stars" id="star-container">
-        <span onclick="setRating(1)">★</span>
-        <span onclick="setRating(2)">★</span>
-        <span onclick="setRating(3)">★</span>
-        <span onclick="setRating(4)">★</span>
-        <span onclick="setRating(5)">★</span>
-    </div>
-    <div id="rating-status" class="rating-text">कृपया हमें रेटिंग दें</div>
-</div>
-
-<div class="info-section">
-    <div class="info-title">About Us</div>
-    <div class="scroll-box">
-        <p><strong>'जन सुरक्षा प्लस'</strong> अशोक गिरी (खटीमा) द्वारा समाज सेवा और सुरक्षा हेतु विकसित किया गया है।</p>
+        <button class="q-btn p-btn" onclick="callService('112')">👮<br>पुलिस</button>
+        <button class="q-btn f-btn" onclick="callService('101')">🔥<br>फायर</button>
+        <button class="q-btn a-btn" onclick="callService('108')">🚑<br>एम्बुलेंस</button>
     </div>
 </div>
 
 <div class="info-section">
     <div class="disclaimer-box">
-        <strong>अस्वीकरण:</strong> यह अशोक गिरी का व्यक्तिगत प्रोजेक्ट है। jansuraksha.gov.in से संबंध नहीं है।
+        <strong>अस्वीकरण:</strong> यह एक व्यक्तिगत सामाजिक प्रोजेक्ट है। किसी भी आपातकालीन नंबर के दुरुपयोग के लिए विकसितकर्ता जिम्मेदार नहीं है।
     </div>
 </div>
 
@@ -133,9 +86,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('जन सुरक्षा प्लस: सक्रिय!'))
-                .catch(err => console.log('SW Error:', err));
+            navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW Error:', err));
         });
     }
 
@@ -147,7 +98,7 @@
         localStorage.setItem('n2', document.getElementById('n2').value);
         localStorage.setItem('wg', document.getElementById('wg').value);
         toggleFields(true);
-        alert("अशोक गिरी सर: डेटा सुरक्षित कर दिया गया है!");
+        alert("डेटा सुरक्षित कर दिया गया है!");
     }
     
     function unlock() { toggleFields(false); }
@@ -161,53 +112,22 @@
             let val = localStorage.getItem(id);
             if(val) { document.getElementById(id).value = val; document.getElementById(id).disabled = true; }
         });
-        // लोड होते ही रेटिंग चेक करें
-        let savedRating = localStorage.getItem('userRating');
-        if(savedRating) updateStars(savedRating);
     };
     
-    // Improved SOS Function
     function sos() {
         let n1 = localStorage.getItem('n1');
-        let n2 = localStorage.getItem('n2');
-        let wg = localStorage.getItem('wg');
-        if(!n1 && !n2) return alert("कृपया पहले नंबर सेव करें!");
-
+        if(!n1) return alert("कृपया पहले नंबर सेव करें!");
         navigator.geolocation.getCurrentPosition(p => {
-            let loc = `http://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`;
+            let loc = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
             let msg = encodeURIComponent(`🚨 SOS! मेरी लोकेशन: ${loc}`);
-            if(n1) window.open(`https://wa.me/${n1}?text=${msg}`, '_blank');
-            if(n2) setTimeout(() => window.open(`https://wa.me/${n2}?text=${msg}`, '_blank'), 2000);
-            if(wg) setTimeout(() => window.open(`${wg}?text=${msg}`, '_blank'), 4000);
+            window.open(`https://wa.me/${n1}?text=${msg}`, '_blank');
         }, () => alert("GPS ऑन करें!"), {enableHighAccuracy:true});
     }
 
-    // Dynamic Emergency Service Function
-    function callService(num, name) {
-        navigator.geolocation.getCurrentPosition(p => {
-            let loc = `http://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`;
-            let msg = encodeURIComponent(`अलर्ट! मुझे ${name} चाहिए। मेरी लोकेशन: ${loc}`);
-            window.location.href = `tel:${num}`;
-            setTimeout(() => { window.open(`sms:${num}?body=${msg}`, '_blank'); }, 1500);
-        }, () => { window.location.href = `tel:${num}`; }, {enableHighAccuracy:true});
+    function callService(num) {
+        window.location.href = `tel:${num}`;
     }
 
-    // Rating Functions
-    function setRating(n) {
-        localStorage.setItem('userRating', n);
-        updateStars(n);
-        document.getElementById('rating-status').innerText = "शुक्रिया! आपने हमें " + n + " स्टार दिए हैं।";
-    }
-
-    function updateStars(n) {
-        let stars = document.querySelectorAll('.stars span');
-        stars.forEach((star, index) => {
-            if (index < n) star.classList.add('active');
-            else star.classList.remove('active');
-        });
-    }
-
-    // Original Siren Code
     let audioCtx = null, oscillator = null, gainNode = null, active = false, sirenInterval = null;
     function tS() {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -228,18 +148,15 @@
             oscillator.start();
             active = true;
             document.getElementById('s').innerText = "🛑 सायरन बंद करें";
-            document.body.style.background = "#ffcccc";
         } else {
             if(oscillator) { oscillator.stop(); clearInterval(sirenInterval); }
             active = false;
             document.getElementById('s').innerText = "🚨 सायरन बजाएं";
-            document.body.style.background = "#f0f2f5";
         }
     }
 
     function shareApp() {
         if (navigator.share) navigator.share({ title: 'जन सुरक्षा प्लस', url: window.location.href });
-        else alert("Link: " + window.location.href);
     }
 </script>
 </body>
