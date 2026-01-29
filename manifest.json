@@ -1,7 +1,7 @@
 {
   "name": "Jan Suraksha Plus",
   "short_name": "JanSuraksha",
-  "description": "अशोक गिरी द्वारा विकसित आपातकालीन सुरक्षा ऐप (खटीमा, उत्तराखंड)",
+  "description": "Public Safety App developed by Ashok Giri",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -18,15 +18,6 @@
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "screenshot.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Jan Suraksha Plus Home Screen"
     }
   ]
 }
